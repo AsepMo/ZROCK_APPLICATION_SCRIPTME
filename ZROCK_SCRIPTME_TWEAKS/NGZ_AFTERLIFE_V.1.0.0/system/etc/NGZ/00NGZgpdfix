@@ -1,0 +1,19 @@
+busybox mount -o remount,rw /
+busybox mount -o remount,rw rootfs
+busybox mount -o remount,rw /system
+busybox echo ""
+busybox echo "Memproses..."
+busybox echo ""
+busybox echo "Harap tunggu..."
+busybox echo ""
+su -c pm disable com.google.android.gms/.update.SystemUpdateActivity > /dev/null
+su -c pm disable com.google.android.gms/.update.SystemUpdateService > /dev/null
+su -c pm disable com.google.android.gms/.update.SystemUpdateService$ActiveReceiver  > /dev/null
+su -c pm disable com.google.android.gms/.update.SystemUpdateService$Receiver > /dev/null
+su -c pm disable com.google.android.gms/.update.SystemUpdateService$SecretCodeReceiver > /dev/null
+su -c pm disable com.google.android.gsf/.update.SystemUpdateActivity > /dev/null
+su -c pm disable com.google.android.gsf/.update.SystemUpdatePanoActivity > /dev/null
+su -c pm disable com.google.android.gsf/.update.SystemUpdateService > /dev/null
+su -c pm disable com.google.android.gsf/.update.SystemUpdateService$Receiver > /dev/null
+su -c pm disable com.google.android.gsf/.update.SystemUpdateService$SecretCodeReceiver > /dev/null
+busybox sleep 1

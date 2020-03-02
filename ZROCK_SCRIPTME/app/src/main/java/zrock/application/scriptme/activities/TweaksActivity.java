@@ -131,7 +131,11 @@ public class TweaksActivity extends FragmentActivity
 
 					return true;
 				case R.id.im_info:
-
+					if(mDrawerLayout.isDrawerVisible(Gravity.LEFT)){
+						mDrawerLayout.closeDrawers();
+					}else{
+						mDrawerLayout.openDrawer(Gravity.LEFT);
+					}
 					return true;
 				default:
 					return super.onOptionsItemSelected(item);

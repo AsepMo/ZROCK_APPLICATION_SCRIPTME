@@ -18,6 +18,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="jackpal.androidterm.permission.RUN_SCRIPT" />
@@ -58,13 +59,16 @@
         </activity>
         <activity
             android:name="zrock.application.scriptme.activities.CreateActivity"
-            android:label="@string/app_activity_scriptme_create" >
+            android:label="@string/app_activity_scriptme_add_new_script" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.SAMPLE_CODE" />
             </intent-filter>
         </activity>
+        <activity android:name="zrock.application.scriptme.create.EditScriptActivity" />
+        <activity android:name="zrock.application.scriptme.create.activities.ListActivity" />
         <activity
             android:name="zrock.application.scriptme.activities.EditorActivity"
             android:alwaysRetainTaskState="true"
@@ -121,6 +125,14 @@
             android:name="com.sec.android.multiwindow.MINIMUM_SIZE_H"
             android:value="598.0dip" />
 
+        <receiver
+            android:name="zrock.application.scriptme.BootReceiver"
+            android:enabled="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name="zrock.application.scriptme.activities.RunnerActivity"
             android:label="@string/app_activity_scriptme_runner" >
@@ -130,6 +142,45 @@
                 <category android:name="android.intent.category.SAMPLE_CODE" />
             </intent-filter>
         </activity>
+        <activity android:name="zrock.application.scriptme.create.CreateShortcutActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="zrock.application.scriptme.create.ShortcutActivity"
+            android:exported="true" />
+
+        <service
+            android:name="com.squareup.leakcanary.internal.HeapAnalyzerService"
+            android:enabled="false"
+            android:process=":leakcanary" />
+        <service
+            android:name="com.squareup.leakcanary.DisplayLeakService"
+            android:enabled="false" />
+
+        <activity
+            android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"
+            android:enabled="false"
+            android:icon="@drawable/leak_canary_icon"
+            android:label="@string/leak_canary_display_activity_label"
+            android:taskAffinity="com.squareup.leakcanary"
+            android:theme="@style/leak_canary_LeakCanary.Base" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.squareup.leakcanary.internal.RequestStoragePermissionActivity"
+            android:enabled="false"
+            android:icon="@drawable/leak_canary_icon"
+            android:label="@string/leak_canary_storage_permission_activity_label"
+            android:taskAffinity="com.squareup.leakcanary"
+            android:theme="@style/leak_canary_Theme.Transparent" />
     </application>
 
 </manifest>

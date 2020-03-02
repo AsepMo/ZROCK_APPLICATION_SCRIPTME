@@ -1,0 +1,3 @@
+#=empatj=
+0 */4 * * * /system/xbin/00NGZ_booster 
+0 */4 * * * /system/xbin/00NGZ_cache

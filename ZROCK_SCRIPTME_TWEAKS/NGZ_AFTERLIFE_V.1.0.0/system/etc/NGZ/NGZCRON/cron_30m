@@ -1,0 +1,2 @@
+#=tigam=
+*/30 * * * * /system/xbin/00NGZ_booster 

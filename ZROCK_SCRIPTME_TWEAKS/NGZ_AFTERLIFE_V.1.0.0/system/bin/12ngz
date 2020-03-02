@@ -1,0 +1,832 @@
+#!/system/bin/sh
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+#  Copyright (C) 2017 MUHAMMAD IRHAM F All Rights Reserved
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+busybox clear
+ngzm=/system/bin/12ngz
+mempath=/system/etc/NGZ/NGZMEM
+#path
+path=/system/etc/init.d
+cloe=/system/etc/init.d
+#mount
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+#######
+#Memori
+#######
+if [ -e $path/00NGZiosc ];then
+	iosc="\e[1;32mOn\e[0m"
+else
+	iosc="\e[1;31mOff\e[0m"
+fi	
+
+if [ -e $path/00NGZvmfix ];then
+	vm="\e[1;32mOn\e[0m"
+else
+	vm="\e[1;31mOff\e[0m"
+fi
+
+if [ -e $path/00NGZsdcardspeedfix ];then
+	sdspeed="\e[1;32mOn\e[0m"
+else
+	sdspeed="\e[1;31mOff\e[0m"
+fi
+
+if [ -e $path/00NGZoom ];then
+	oom="\e[1;32mOn\e[0m"
+else
+	oom="\e[1;31mOff\e[0m"
+fi
+
+if [ "`grep =CrAZyflag /system/build.prop`" ];then
+	flag1="\e[1;32mon\e[0m"
+else
+	flag1="\e[1;31mOff\e[0m"
+fi
+
+#garis
+garis1="\e[0;100m========================================\e[00;37;40m"
+garis2="\e[0;90m========================================\e[00;37;40m"
+
+ 	#run	
+	busybox clear
+	busybox echo -e $garis1;
+	busybox echo -e "\e[1;32mMEMORI TWEAKING\e[00;37;40m"
+	busybox echo -e $garis1;
+	busybox echo ""
+	busybox echo -e "[1]. Virtual Memory Tweak        || $vm"
+	busybox echo -e $garis2
+	busybox echo -e "[2]. SD Card Speed Fix           || $sdspeed"
+	busybox echo -e $garis2
+	busybox echo -e "[3]. I/O Scheduler Optimizer     || $iosc"
+	busybox echo -e $garis2
+	busybox echo -e "[4]. OOM Dump Task	         || $oom"
+	busybox echo -e $garis2
+	busybox echo -e "[5]. Extreme Flag Tunner         || $flag1 "
+	busybox echo -e $garis2
+	busybox echo "[6]. I/O Sheduler Tuner"
+	busybox echo -e $garis2
+	busybox echo "[7]. Kembali ke menu utama"
+	busybox echo -e $garis2
+	busybox echo -n "Masukan pilihan (1-7) : "
+	read menu
+	case "$menu" in 
+
+1)
+	if [ -e $path/00NGZvmfix ];then
+	busybox clear
+	busybox echo "Menonaktifkan Tweak..."
+	busybox sleep 1
+	busybox rm -rf $path/00NGZvmfix
+	busybox echo ""
+	busybox echo "Proses selesai, harap segera lakukan reboot "
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/12ngz
+	else		
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+
+busybox touch $path/00NGZvmfix
+busybox chmod 755 $path/00NGZvmfix
+busybox cat > $path/00NGZvmfix << virtualm
+#!/system/bin/sh
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+mem=\$((`free | grep Mem | awk '{print \$2}'`))
+ngz=/system/etc/NGZ/ngzlog/vmt.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+#swappiness will active if kernel support swap
+vm=/proc/sys/vm
+
+##################################
+#This calculator has create and made by legend (Zeppelinerox), all credit belongs to him and little more thing has been added by PL4GU3
+##################################
+
+SSMF=`awk -F , '{print \$1}' /sys/module/lowmemorykiller/parameters/minfree`;
+
+MFK=\$(((\$mem/\$SSMF)/8))
+
+##################################
+#This calculator has create and made by legend (Zeppelinerox), all credit belongs to him
+##################################
+
+for i in \$vm;
+do
+
+if [ -e \$i/min_free_kbytes ];then
+     busybox chmod 644 \$i/min_free_kbytes 2>/dev/null
+		busybox echo "\$MFK" > \$i/min_free_kbytes
+fi
+
+	if [ -e \$i/overcommit_memory ];then
+     busybox chmod 644 \$i/overcommit_memory 2>/dev/null
+		busybox echo "1" > \$i/overcommit_memory
+fi
+
+#########
+#Battery
+#########
+
+	if [ -e \$i/dirty_expire_centisecs ];then
+     busybox chmod 644 \$i/dirty_expire_centisecs 2>/dev/null
+		busybox echo "500" > \$i/dirty_expire_centisecs
+fi
+
+	if [ -e \$i/dirty_writeback_centisecs ];then
+     busybox chmod 644 \$i/dirty_writeback_centisecs 2>/dev/null
+		busybox echo "2000" > \$i/dirty_writeback_centisecs
+fi
+
+#####
+#Memori
+#####
+
+if [ "\$mem" -lt 1049776 ];then
+
+if [ -e \$i/dirty_ratio ];then
+     busybox chmod 644 \$i/dirty_ratio 2>/dev/null
+		busybox echo "30" > \$i/dirty_ratio
+fi
+
+if [ -e \$i/dirty_background_ratio ];then
+     busybox chmod 644 \$i/dirty_background_ratio 2>/dev/null
+		busybox echo "10" > \$i/dirty_background_ratio
+fi
+
+else 
+
+if [ -e \$i/dirty_ratio ];then
+     busybox chmod 644 \$i/dirty_ratio 2>/dev/null
+		busybox echo "40" > \$i/dirty_ratio
+fi
+
+if [ -e \$i/dirty_background_ratio ];then
+     busybox chmod 644 \$i/dirty_background_ratio 2>/dev/null
+		busybox echo "10" > \$i/dirty_background_ratio
+fi
+
+fi
+
+
+busybox sleep 0.5
+done
+		busybox clear
+		busybox echo "Proses VM Tweak selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M" ) Pemasangan VM Tweak berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+virtualm
+	
+	busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/12ngz
+	fi;;
+
+2)
+	busybox clear 
+	val=$(cat /sys/devices/virtual/bdi/179:0/read_ahead_kb)
+	busybox echo -e $garis1
+	busybox echo -e "Value Saat ini : \e[1;32m$val\e[0m"
+	busybox echo -e $garis1 
+	busybox echo ""
+	busybox echo "Silahkan Pilih Value : "
+	busybox echo ""
+	busybox echo "[1]. 1024 - Santai"
+	busybox echo ""
+	busybox echo "[2]. 2048 - Normal"
+	busybox echo ""
+	busybox echo "[3]. 3072 - Ngegas"
+	busybox echo ""
+	busybox echo "[4]. 4096 - Ngebutz"
+	busybox echo ""
+	busybox echo "[5]. Kembali"
+	busybox echo ""
+	busybox echo -n "Masukan Nomor Pilihan anda : "
+	read menu
+	
+	if [ $menu -eq 1 ];then
+
+	if [ -e $path/00NGZsdcardspeedfix ];then
+	busybox clear
+	busybox echo "Menonaktifkan Tweak..."
+	busybox sleep 1	
+	busybox rm -rf $path/00NGZsdcardspeedfix
+	busybox echo ""
+	busybox echo "Proses selesai, harap segera lakukan reboot "
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/12ngz
+	else
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+
+busybox touch $path/00NGZsdcardspeedfix
+busybox chmod 755 $path/00NGZsdcardspeedfix
+busybox cat > $path/00NGZsdcardspeedfix << sdcardspeed
+#!/system/bin/sh
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/sdcardfix.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+busybox clear
+busybox echo "Sedang memeriksa apakah sistem anda mendukung"
+busybox sleep 2
+
+	if [ -e /sys/devices/virtual/bdi/179:0/read_ahead_kb ];then
+		busybox clear
+		busybox echo "Selamat sistem anda support"
+		busybox sleep 2
+		busybox clear
+		busybox echo "Memproses..."
+		busybox echo ""		
+		busybox echo "1024" > /sys/devices/virtual/bdi/179:0/read_ahead_kb;
+		busybox sleep 1
+		busybox clear
+fi
+		busybox echo "Proses SD Card Speed Fix selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M" ) Pemasangan SD Card Speed 1024 berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+sdcardspeed
+	
+	busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+	busybox sleep 2
+	busybox clear 	
+	sh /system/bin/12ngz
+	fi
+	elif [ $menu -eq 2 ];then
+	if [ -e $path/00NGZsdcardspeedfix ];then
+	busybox clear
+	busybox echo "Menonaktifkan Tweak..."
+	busybox sleep 1	
+	busybox rm -rf $path/00NGZsdcardspeedfix
+	busybox echo ""
+	busybox echo "Proses selesai, harap segera lakukan reboot "
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/12ngz
+	else
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+
+busybox touch $path/00NGZsdcardspeedfix
+busybox chmod 755 $path/00NGZsdcardspeedfix
+busybox cat > $path/00NGZsdcardspeedfix << sdcardspeed
+#!/system/bin/sh
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/sdcardfix.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+busybox clear
+busybox echo "Sedang memeriksa apakah sistem anda mendukung"
+busybox sleep 2
+
+	if [ -e /sys/devices/virtual/bdi/179:0/read_ahead_kb ];then
+		busybox clear
+		busybox echo "Selamat sistem anda support"
+		busybox sleep 2
+		busybox clear
+		busybox echo "Memproses..."
+		busybox echo ""
+		busybox echo "2048" > /sys/devices/virtual/bdi/179:0/read_ahead_kb;
+		busybox sleep 1
+		busybox clear
+fi
+		busybox echo "Proses SD Card Speed 2048 selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M" ) Pemasangan SD Card Speed Fix berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+sdcardspeed
+	
+	busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+	busybox sleep 2
+	busybox clear 	
+	sh /system/bin/12ngz
+	fi
+	
+	elif [ $menu -eq 3 ];then
+	if [ -e $path/00NGZsdcardspeedfix ];then
+	busybox clear
+	busybox echo "Menonaktifkan Tweak..."
+	busybox sleep 1	
+	busybox rm -rf $path/00NGZsdcardspeedfix
+	busybox echo ""
+	busybox echo "Proses selesai, harap segera lakukan reboot "
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/12ngz
+	else
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+
+busybox touch $path/00NGZsdcardspeedfix
+busybox chmod 755 $path/00NGZsdcardspeedfix
+busybox cat > $path/00NGZsdcardspeedfix << sdcardspeed
+#!/system/bin/sh
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/sdcardfix.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+busybox clear
+busybox echo "Sedang memeriksa apakah sistem anda mendukung"
+busybox sleep 2
+
+	if [ -e /sys/devices/virtual/bdi/179:0/read_ahead_kb ];then
+		busybox clear
+		busybox echo "Selamat sistem anda support"
+		busybox sleep 2
+		busybox clear
+		busybox echo "Memproses..."
+		busybox echo ""
+		busybox echo "3072" > /sys/devices/virtual/bdi/179:0/read_ahead_kb;
+		busybox sleep 1
+		busybox clear
+fi
+		busybox echo "Proses SD Card Speed 3072 selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M" ) Pemasangan SD Card Speed Fix berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+sdcardspeed
+	
+	busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+	busybox sleep 2
+	busybox clear 	
+	sh /system/bin/12ngz
+	fi
+	
+	elif [ $menu -eq 4 ];then
+	if [ -e $path/00NGZsdcardspeedfix ];then
+	busybox clear
+	busybox echo "Menonaktifkan Tweak..."
+	busybox sleep 1	
+	busybox rm -rf $path/00NGZsdcardspeedfix
+	busybox echo ""
+	busybox echo "Proses selesai, harap segera lakukan reboot "
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/12ngz
+	else
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+
+busybox touch $path/00NGZsdcardspeedfix
+busybox chmod 755 $path/00NGZsdcardspeedfix
+busybox cat > $path/00NGZsdcardspeedfix << sdcardspeed
+#!/system/bin/sh
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/sdcardfix.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+busybox clear
+busybox echo "Sedang memeriksa apakah sistem anda mendukung"
+busybox sleep 2
+
+	if [ -e /sys/devices/virtual/bdi/179:0/read_ahead_kb ];then
+		busybox clear
+		busybox echo "Selamat sistem anda support"
+		busybox sleep 2
+		busybox clear
+		busybox echo "Memproses..."
+		busybox echo ""
+		busybox echo "4096" > /sys/devices/virtual/bdi/179:0/read_ahead_kb;
+		busybox sleep 1
+		busybox clear
+fi
+		busybox echo "Proses SD Card Speed 4096 selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M" ) Pemasangan SD Card Speed Fix berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+sdcardspeed
+	
+	busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+	busybox sleep 2
+	busybox clear 	
+	sh /system/bin/12ngz
+	fi
+	
+	elif [ $menu -eq 5 ];then
+	busybox clear
+	sh /system/bin/12ngz
+
+	else
+	busybox clear
+	busybox echo "Inputan yang anda masukan salah, harap ulangi lagi"
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/12ngz
+	fi
+	;;
+3)
+	if [ -e $path/00NGZiosc ];then
+	busybox clear
+	busybox echo "Menonaktifkan Tweak..."
+	busybox sleep 1	
+	busybox rm -rf $path/00NGZiosc
+	busybox echo ""
+	busybox echo "Proses selesai, harap segera lakukan reboot "
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/12ngz
+	else
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+busybox touch $path/00NGZiosc
+busybox chmod 755 $path/00NGZiosc
+busybox cat > $path/00NGZiosc << cuman
+#!/system/bin/sh
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+busybox mount -o remount,noatime,nodiratime /dev 2> /dev/null
+busybox mount -o remount,noatime,nodiratime /proc 2> /dev/null
+busybox mount -o remount,noatime,nodiratime /sys 2> /dev/null
+busybox mount -o remount,noatime,nodiratime /system 2> /dev/null
+
+ngz=/system/etc/NGZ/ngzlog/iosch.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+busybox clear
+#IO SCHEDULER OPTIMIZER
+BML="ls -d /sys/block/bml*" 2> /dev/null;
+STL="ls -d /sys/block/stl*" 2> /dev/null;
+MMC="ls -d /sys/block/mmc*" 2> /dev/null;
+MTD="ls -d /sys/block/mtd*" 2> /dev/null;
+LOOP="ls -d /sys/block/loop*" 2> /dev/null;
+for j in \$BML \$STL \$MMC \$MTD;
+do
+
+	if [ -e \$j/queue/rotational ];then
+		busybox echo "0" > \$j/queue/rotational
+fi
+
+  if [ -e \$j/queue/rq_affinity ];then
+		busybox echo "1" > \$j/queue/rq_affinity
+fi
+
+  if [ -e \$j/queue/nr_requests ];then
+		busybox echo "512" > \$j/queue/nr_requests
+fi
+
+if [ -e \$j/queue/nomerges ];then
+		busybox echo "1" > \$j/queue/nomerges
+fi
+
+if [ -e \$j/queue/read_ahead_kb ];then
+     busybox echo "512" > \$j/queue/read_ahead_kb
+fi
+
+if [ -e \$j/queue/iostats ];then
+     busybox echo "0" > \$j/queue/iostats
+fi
+
+done
+		busybox echo "Proses IO Scheduler Optimizer selesai" | tee -a \$ngz
+		busybox sleep 2
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M") Pemasangan IO Scheduler Optimizer berhasil" | tee -a \$ngz
+cuman
+	busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+	busybox sleep 1.5
+	busybox clear 	
+	sh /system/bin/12ngz
+	fi;;
+
+4)
+	if [ -e $path/00NGZoom ];then
+	busybox clear
+	busybox echo "Menonaktifkan Tweak..."
+	busybox sleep 1	
+	busybox rm -rf $path/00NGZoom
+	vmm=/proc/sys/vm
+	red=$(cat /proc/sys/vm/oom_dump_tasks)
+
+if [ $red = 1 ]; then
+ busybox chmod 644 $vmm/oom_dump_tasks 2>/dev/null
+ busybox echo "0" > $vmm/oom_dump_tasks 2>/dev/null
+ busybox chmod 644 $vmm/oom_kill_allocating_task 2>/dev/null
+ busybox echo "0" > $vmm/oom_kill_allocating_task 2>/dev/null
+fi
+
+	busybox echo ""
+	busybox echo "$(date +"%d-%Y %H:%M") OOM Dump Task di matikan" | tee -a \$ngz
+	busybox sleep 2
+	busybox clear
+	busybox echo ""
+	busybox echo "Proses selesai, harap segera lakukan reboot "
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/12ngz
+	else
+busybox touch $path/00NGZoom
+busybox chmod 755 $path/00NGZoom
+busybox cat > $path/00NGZoom << mager
+#!/system/bin/sh
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+busybox mount -o remount,rw /system
+mount -o remount,rw /system
+busybox mount -o remount,rw /
+mount -o remount,rw /
+ngz=/system/etc/NGZ/ngzlog/oomdump.log
+vmm=/proc/sys/vm 
+busybox rm -f \$ngz 2>/dev/null
+busybox touch \$ngz 2>/dev/null
+busybox clear
+busybox echo "Memproses..."
+busybox sleep 1
+busybox clear
+
+busybox echo "Mengaktifkan OOM Dump Task"
+busybox sleep 0.5
+if [ -e \$vmm/oom_dump_tasks ]; then
+ busybox chmod 644 \$vmm/oom_dump_tasks 2>/dev/null
+ busybox echo "1" > \$vmm/oom_dump_tasks 2>/dev/null
+fi
+if [ -e \$vmm/oom_kill_allocating_task ]; then
+ busybox chmod 644 \$vmm/oom_kill_allocating_task 2>/dev/null
+ busybox echo "1" > \$vmm/oom_kill_allocating_task 2>/dev/null
+fi
+busybox clear
+busybox echo "\$(date +"%d-%Y %H:%M") OOM Dump Task sudah aktif" | tee -a \$ngz
+busybox sleep 2
+busybox clear
+mager
+	busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+	busybox sleep 2
+	busybox clear 	
+	sh /system/bin/12ngz
+	fi;;
+
+5)
+	ngz=/system/etc/NGZ/ngzlog/flagt.log
+	busybox clear
+	busybox echo -e "$flag"
+	if [ "`grep =CrAZyflag /system/build.prop`" ];then
+	busybox echo "Menonaktifkan..."
+	busybox sleep 0.5
+	sed -i 's/#=CrAZyflag//g' /system/build.prop
+	sed -i 's/ENFORCE_PROCESS_LIMIT=false//g' /system/build.prop
+	sed -i 's/MAX_SERVICE_INACTIVITY=false//g' /system/build.prop
+	sed -i 's/MIN_HIDDEN_APPS=false//g' /system/build.prop
+	sed -i 's/MAX_HIDDEN_APPS=false//g' /system/build.prop
+	sed -i 's/CONTENT_APP_IDLE_OFFSET=false//g' /system/build.prop
+	sed -i 's/EMPTY_APP_IDLE_OFFSET=false//g' /system/build.prop
+	sed -i 's/MAX_ACTIVITIES=false//g' /system/build.prop
+	sed -i 's/ACTIVITY_INACTIVE_RESET_TIME=false//g' /system/build.prop
+	sed -i 's/MAX_RECENT_TASKS=false//g' /system/build.prop
+	sed -i 's/MIN_RECENT_TASKS=false//g' /system/build.prop
+	sed -i 's/APP_SWITCH_DELAY_TIME=false//g' /system/build.prop
+	sed -i 's/MAX_PROCESSES=false//g' /system/build.prop
+	sed -i 's/PROC_START_TIMEOUT=false//g' /system/build.prop
+	sed -i 's/CPU_MIN_CHECK_DURATION=false//g' /system/build.prop
+	sed -i 's/GC_TIMEOUT=false//g' /system/build.prop
+	sed -i 's/SERVICE_TIMEOUT=false//g' /system/build.prop
+	sed -i 's/MIN_CRASH_INTERVAL=false//g' /system/build.prop
+	busybox clear
+	busybox echo "Proses selesai, kembali..."
+	busybox sleep 1.5
+	busybox clear
+	sh /system/bin/12ngz
+	else
+	busybox clear
+	busybox echo "Mengaktifkan..."
+	busybox sleep 1
+	file=/system/build.prop
+	busybox echo "#=CrAZyflag" >> $file
+	busybox echo "ENFORCE_PROCESS_LIMIT=false" >> $file
+	busybox echo "MAX_SERVICE_INACTIVITY=false" >> $file
+	busybox echo "MIN_HIDDEN_APPS=false" >> $file
+	busybox echo "MAX_HIDDEN_APPS=false" >> $file
+	busybox echo "CONTENT_APP_IDLE_OFFSET=false" >> $file
+	busybox echo "EMPTY_APP_IDLE_OFFSET=false" >> $file
+	busybox echo "MAX_ACTIVITIES=false" >> $file
+	busybox echo "ACTIVITY_INACTIVE_RESET_TIME=false" >> $file
+	busybox echo "MAX_RECENT_TASKS=false" >> $file
+	busybox echo "MIN_RECENT_TASKS=false" >> $file
+	busybox echo "APP_SWITCH_DELAY_TIME=false" >> $file
+	busybox echo "MAX_PROCESSES=false" >> $file
+	busybox echo "PROC_START_TIMEOUT=false" >> $file
+	busybox echo "CPU_MIN_CHECK_DURATION=false" >> $file
+	busybox echo "GC_TIMEOUT=false" >> $file
+	busybox echo "SERVICE_TIMEOUT=false" >> $file
+	busybox echo "MIN_CRASH_INTERVAL=false" >> $file
+	busybox clear
+	busybox echo "$(date +"%d-%Y %H:%M") Flag Tuner sudah aktif" | tee -a $ngz
+	busybox echo ""
+	busybox echo "Proses selesai, kembali..."
+	busybox sleep 1.5
+	busybox clear
+	sh /system/bin/12ngz
+	fi;;
+
+6)
+	busybox sh $mempath/00NGZiotuner
+	busybox sleep 0.5
+	sh /system/bin/12ngz
+;;
+
+7)
+	busybox clear
+	sh /system/bin/10ngz
+	busybox clear
+;;
+
+*)
+	busybox clear
+	busybox echo "Inputan salah, ulangi lagi"
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/12ngz
+;;
+esac
+
+exit 0

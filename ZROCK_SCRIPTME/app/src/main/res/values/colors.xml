@@ -38,5 +38,6 @@
 
     <color name="labelBackground">#222222</color>
     <color name="labelTextColor">#ECEFF1</color>
-	
+
+	<drawable name="scriptme_background">#FF000000</drawable>
 </resources>

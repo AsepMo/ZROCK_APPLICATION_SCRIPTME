@@ -1,0 +1,77 @@
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+#mengoptimasi kernel
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/kernel.log 
+busybox rm -f $ngz
+busybox touch $ngz
+
+############CALCULATE#############
+mem=$((1406672))
+max=$(($mem*75/100));
+all=$(($max*80/100));
+filemax=$(($mem*(4096/1024)/10))
+############CALCULATE#############
+
+	if [ -e /proc/sys/kernel/shmmax ]; then 
+       	busybox echo "$max" > /proc/sys/kernel/shmmax
+fi
+
+	if [ -e /proc/sys/kernel/shmall ]; then 
+      	busybox echo "$all" > /proc/sys/kernel/shmall
+fi
+
+	if [ -e /proc/sys/fs/file-max ];then
+		busybox echo "$filemax" > /proc/sys/fs/file-max 
+fi 
+
+	if [ -e /proc/sys/kernel/shmmni ]; then
+      	busybox echo "4096" > /proc/sys/kernel/shmmni
+fi
+
+if [ -e /proc/sys/kernel/sem ]; then 
+        busybox echo "350 32000 32 128" > /proc/sys/kernel/sem 
+fi
+
+	if [ -e /proc/sys/fs/lease-break-time ];then
+		busybox echo "10" > /proc/sys/fs/lease-break-time;
+fi
+
+#Fast Charger if support
+
+if [ -e /sys/kernel/fast_charge/force_fast_charge ];then
+		busybox echo "1" > /sys/kernel/fast_charge/force_fast_charge
+fi
+
+#CFS-CONTROL
+
+if [ -e /proc/sys/kernel/sched_latency_ns ];then
+busybox echo "24000000" > /proc/sys/kernel/sched_latency_ns
+fi
+
+
+if [ -e /proc/sys/kernel/sched_wakeup_granularity_ns ];then
+busybox echo "20000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
+fi
+
+		busybox clear
+		busybox echo "Proses Kernel Tweak selesai" | tee -a $ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a $ngz
+		busybox echo "$(date +"%d-%Y %H:%M" ) Pemasangan Kernel Tweak berhasil" | tee -a $ngz
+		busybox sleep 2
+		busybox clear

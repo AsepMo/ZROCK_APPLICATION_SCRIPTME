@@ -1,0 +1,3 @@
+#=enamj=
+0 */6 * * * /system/xbin/00NGZ_booster 
+0 */6 * * * /system/xbin/00NGZ_cache

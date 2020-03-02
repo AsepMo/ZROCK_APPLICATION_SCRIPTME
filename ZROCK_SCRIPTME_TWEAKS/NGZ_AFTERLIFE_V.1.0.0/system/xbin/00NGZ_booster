@@ -1,0 +1,15 @@
+#RAM CACHE
+busybox echo "3" > /proc/sys/vm/drop_caches;
+dc=/proc/sys/vm/drop_caches
+dc_v=`cat $dc`
+	if [ "$dc_v" -gt 1 ]; then
+	busybox echo "1" > /proc/sys/vm/drop_caches;
+	fi
+#MEDIA SERVER KILLER
+busybox pgrep android.process.media
+busybox killall -9 android.process.media	
+busybox pgrep mediaserver
+busybox killall -9 mediaserver
+#Bersihkan Log
+busybox rm -f /system/etc/NGZ/ngzlog/cron1.log
+busybox touch /system/etc/NGZ/ngzlog/cron1.log

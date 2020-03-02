@@ -1,0 +1,426 @@
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+garis="\e[0;90m========================================\e[00;37;40m"
+garis1="\e[0;100m========================================\e[00;37;40m"
+ngz=/system/etc/NGZ/ngzlog/prop.log 
+file=/system/build.prop
+busybox rm -f $ngz
+busybox touch $ngz
+if [ "`grep =performa= /system/build.prop`" ];then
+	performa="\e[1;32mON\e[0m"
+else
+	performa="\e[1;31mOFF\e[0m"
+fi
+
+if [ "`grep =bb= /system/build.prop`" ];then
+	bb="\e[1;32mON\e[0m"
+else
+	bb="\e[1;31mOFF\e[0m"
+fi
+
+if [ "`grep =optigpu= /system/build.prop`" ];then
+	optigpu="\e[1;32mON\e[0m"
+else
+	optigpu="\e[1;31mOFF\e[0m"
+fi
+
+if [ "`grep =inet= /system/build.prop`" ];then
+	inet="\e[1;32mON\e[0m"
+else
+	inet="\e[1;31mOFF\e[0m"
+fi
+
+if [ "`grep =game= /system/build.prop`" ];then
+	game="\e[1;32mON\e[0m"
+else
+	game="\e[1;31mOFF\e[0m"
+fi
+
+if [ "`grep =debugx= /system/build.prop`" ];then
+	debugx="\e[1;32mON\e[0m"
+else
+	debugx="\e[1;31mOFF\e[0m"
+fi
+
+if [ "`grep =mediax= /system/build.prop`" ];then
+	mediax="\e[1;32mON\e[0m"
+else
+	mediax="\e[1;31mOFF\e[0m"
+fi
+
+if [ "`grep =responsivex= /system/build.prop`" ];then
+	resx="\e[1;32mON\e[0m"
+else
+	resx="\e[1;31mOFF\e[0m"
+fi
+
+if [ "`grep =logcatt= /system/build.prop`" ];then
+	logcatt="\e[1;32mON\e[0m"
+else
+	logcatt="\e[1;31mOFF\e[0m"
+fi
+
+if [ "`grep =dalvikx= /system/build.prop`" ];then
+	dalvikx="\e[1;32mON\e[0m"
+else
+	dalvikx="\e[1;31mOFF\e[0m"
+fi
+busybox echo -e $garis1
+busybox echo -e "\e[1;32mExtreme Build.prop Tweaks\e[0m"
+busybox echo -e $garis1
+busybox echo ""
+busybox echo -e "1. Performance Tweak		|| $performa"
+busybox echo -e $garis
+busybox echo -e "2. Baterai Tweak		|| $bb"
+busybox echo -e $garis
+busybox echo -e "3. Optimasi GPU			|| $optigpu"
+busybox echo -e $garis
+busybox echo -e "4. Simple Game Tweak		|| $game"
+busybox echo -e $garis
+busybox echo -e "5. Mendisable Debugging	        || $debugx"
+busybox echo -e $garis
+busybox echo -e "6. Optimasi Media		|| $mediax"
+busybox echo -e $garis
+busybox echo -e "7. Tingkatkan Responsive	|| $resx"
+busybox echo -e $garis
+busybox echo -e "8. Disable Log Cat		|| $logcatt"
+busybox echo -e $garis
+busybox echo -e "9. Dalvik VM Tweak		|| $dalvikx"
+busybox echo -e $garis
+busybox echo "10. Kembali ke halaman utama"
+busybox echo ""
+busybox echo -n "Masukan Pilihan Anda (1-10) : "
+read jj
+
+if  [ $jj -eq 1 ];then
+busybox clear
+if [ "`grep =performa= /system/build.prop`" ];then
+
+	sed -i 's/=performa=//g' /system/build.prop
+	sed -i 's/ro.securestorage.knox=false//g' /system/build.prop
+	sed -i 's/debug.performance.tuning=1//g' /system/build.prop
+	sed -i 's/persist.service.pcsync.enable=0//g' /system/build.prop
+	sed -i 's/persist.service.lgospd.enable=0//g' /system/build.prop
+	sed -i 's/windowsmgr.max_events_per_sec=150//g' /system/build.prop
+	sed -i 's/ro.product.gpu.driver=1//g' /system/build.prop
+	sed -i 's/ENFORCE_PROCESS_LIMIT=false//g' /system/build.prop
+	sed -i 's/ro.wmt.blcr.enable=0//g' /system/build.prop
+	sed -i 's/debug.kill_allocating_task=0//g' /system/build.prop
+	sed -i 's/ro.ril.disable.power.collapse=0//g' /system/build.prop
+	sed -i 's/ro.config.dha_tunnable=1//g' /system/build.prop
+	sed -i 's/force_hw_ui=true//g' /system/build.prop
+	sed -i 's/persist.sys.purgeable_assets=1//g' /system/build.prop
+	sed -i 's/ro.debuggable=1//g' /system/build.prop
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop	
+	else	
+	busybox echo "Memproses Performance Tweak"
+	busybox echo "" >>$file
+	busybox echo "#=performa=" >>$file
+	busybox echo "ro.securestorage.knox=false" >>$file
+	busybox echo "debug.performance.tuning=1" >>$file
+	busybox echo "persist.service.pcsync.enable=0" >>$file
+	busybox echo "persist.service.lgospd.enable=0" >>$file
+	busybox echo "windowsmgr.max_events_per_sec=150" >>$file
+	busybox echo "ro.product.gpu.driver=1" >>$file
+	busybox echo "ENFORCE_PROCESS_LIMIT=false" >>$file
+	busybox echo "ro.wmt.blcr.enable=0" >>$file
+	busybox echo "debug.kill_allocating_task=0" >>$file
+	busybox echo "ro.config.dha_tunnable=1" >>$file
+	busybox echo "force_hw_ui=true" >>$file
+	busybox echo "persist.sys.purgeable_assets=1" >>$file
+	busybox echo "ro.debuggable=1" >>$file
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop
+fi
+busybox clear
+fi
+
+if  [ $jj -eq 2 ];then
+busybox clear
+if [ "`grep =bb= /system/build.prop`" ];then
+
+	sed -i 's/=bb=//g' /system/build.prop
+	sed -i 's/ro.ril.power_collapse=1//g' /system/build.prop
+	sed -i 's/power_supply.wakeup=enable//g' /system/build.prop
+	sed -i 's/wifi.supplicant_scan_interval=180//g' /system/build.prop
+	sed -i 's/pm.sleep_mode=1//g' /system/build.prop
+	sed -i 's/ro.config.hw_power_saving=true//g' /system/build.prop
+	sed -i 's/power.saving.mode=1//g' /system/build.prop
+	sed -i 's/profiler.force_disable_ulog=true//g' /system/build.prop
+	sed -i 's/profiler.force_disable_err_rpt=true//g' /system/build.prop
+	sed -i 's/profiler.force_disable_err_rpt=1//g' /system/build.prop
+	sed -i 's/profiler.force_disable_ulog=1//g' /system/build.prop	
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop
+	else
+	busybox echo "Memproses Baterai Tweak"
+	busybox echo "" >>$file
+	busybox echo "#=bb=" >>$file
+	busybox echo "ro.ril.power_collapse=1" >>$file
+	busybox echo "power_supply.wakeup=enable" >>$file
+	busybox echo "wifi.supplicant_scan_interval=180" >>$file
+	busybox echo "pm.sleep_mode=1" >>$file
+	busybox echo "ro.config.hw_power_saving=true" >>$file
+	busybox echo "power.saving.mode=1" >>$file
+	busybox echo "profiler.force_disable_ulog=true" >>$file
+	busybox echo "profiler.force_disable_err_rpt=true" >>$file
+	busybox echo "profiler.force_disable_err_rpt=1" >>$file
+	busybox echo "profiler.force_disable_ulog=1" >>$file
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop	
+fi
+busybox clear
+fi
+
+if  [ $jj -eq 3 ];then
+busybox clear
+if [ "`grep =optigpu= /system/build.prop`" ];then
+
+	sed -i 's/=optigpu=//g' /system/build.prop
+	sed -i 's/debug.egl.profiler=1//g' /system/build.prop
+	sed -i 's/debug.egl.hw=1//g' /system/build.prop
+	sed -i 's/debug.sf.hw=1//g' /system/build.prop		
+	sed -i 's/hw2d.force=1//g' /system/build.prop
+	sed -i 's/ro.secure=0//g' /system/build.prop
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop
+	else
+	busybox echo "Memproses Optimasi GPU"
+	busybox echo "" >>$file
+	busybox echo "#=optigpu=" >>$file
+	busybox echo "debug.egl.profiler=1" >>$file
+	busybox echo "debug.egl.hw=1" >>$file
+	busybox echo "hw2d.force=1" >>$file
+	busybox echo "ro.secure=0" >>$file
+	busybox echo "debug.sf.hw=1" >>$file
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop
+fi
+busybox clear
+fi
+
+if  [ $jj -eq 4 ];then
+busybox clear
+if [ "`grep =game= /system/build.prop`" ];then
+
+	sed -i 's/=game=//g' /system/build.prop
+	sed -i 's/persist.sys.NV_FPSLIMIT=60//g' /system/build.prop
+	sed -i 's/persist.sys.NV_POWERMODE=1//g' /system/build.prop
+	sed -i 's/persist.sys.NV_PROFVER=15//g' /system/build.prop
+	sed -i 's/persist.sys.NV_STEREOCTRL=0//g' /system/build.prop
+	sed -i 's/persist.sys.NV_STEREOSEPCHG=0//g' /system/build.prop
+	sed -i 's/persist.sys.NV_STEREOSEP=20//g' /system/build.prop
+	busybox echo ""
+	busybox echo "Proses selesai,kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop
+	else
+	busybox echo "Memproses Simple Game Tweak"
+	busybox echo "" >>$file
+	busybox echo "#=game=" >>$file
+	busybox echo "persist.sys.NV_FPSLIMIT=60" >>$file
+	busybox echo "persist.sys.NV_POWERMODE=1" >>$file
+	busybox echo "persist.sys.NV_PROFVER=15" >>$file
+	busybox echo "persist.sys.NV_STEREOCTRL=0" >>$file
+	busybox echo "persist.sys.NV_STEREOSEPCHG=0" >>$file
+	busybox echo "persist.sys.NV_STEREOSEP=20" >>$file
+	busybox echo ""
+	busybox echo "Proses selesai,kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop
+fi
+busybox clear
+fi
+
+if  [ $jj -eq 5 ];then
+busybox clear
+if [ "`grep =debugx= /system/build.prop`" ];then
+	sed -i 's/=debugx=//g' /system/build.prop	
+	sed -i 's/persist.adb.notify=0//g' /system/build.prop	
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop	
+else
+	busybox clear
+	busybox echo "Memproses Disable Debuging"
+	busybox echo "" >>$file
+	busybox echo "#=debugx=" >>$file
+	busybox echo "persist.adb.notify=0" >>$file
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop	
+fi
+fi
+
+if  [ $jj -eq 6 ];then
+busybox clear
+if [ "`grep =mediax= /system/build.prop`" ];then
+	sed -i 's/=mediax=//g' /system/build.prop
+	sed -i 's/ro.media.enc.jpeg.quality=100//g' /system/build.prop
+	sed -i 's/ro.media.dec.jpeg.memcap=8000000//g' /system/build.prop
+	sed -i 's/ro.media.enc.hprof.vid.bps=8000000//g' /system/build.prop
+	sed -i 's/video.accelerate.hw=1//g' /system/build.prop
+	sed -i 's/media.stagefright.enable-meta=true//g' /system/build.prop
+	sed -i 's/media.stagefright.enable-record=false//g' /system/build.prop
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop	
+else
+	busybox clear
+	busybox echo "Memproses Optimasi Media"
+	busybox echo "" >>$file
+	busybox echo "#=mediax=" >>$file
+	busybox echo "ro.media.enc.hprof.vid.bps=8000000" >>$file
+	busybox echo "ro.media.dec.jpeg.memcap=8000000" >>$file
+	busybox echo "ro.media.enc.jpeg.quality=100" >>$file
+	busybox echo "video.accelerate.hw=1" >>$file
+	busybox echo "media.stagefright.enable-meta=true" >>$file
+	busybox echo "media.stagefright.enable-record=false" >>$file	
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop	
+fi
+fi
+
+if  [ $jj -eq 7 ];then
+busybox clear
+if [ "`grep =responsivex= /system/build.prop`" ];then
+	sed -i 's/=responsivex=//g' /system/build.prop
+	sed -i 's/windowsmgr.max_events_per_sec=90//g' /system/build.prop
+	sed -i 's/ro.max.fling_velocity=15000//g' /system/build.prop
+	sed -i 's/ro.min.fling_velocity=8000//g' /system/build.prop
+	sed -i 's/touch.pressure.scale=0.1//g' /system/build.prop
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop	
+else
+	busybox clear
+	busybox echo "Memproses Responsive"
+	busybox echo "" >>$file
+	busybox echo "#=responsivex=" >>$file
+	busybox echo "windowsmgr.max_events_per_sec=90" >>$file
+	busybox echo "ro.max.fling_velocity=15000" >>$file
+	busybox echo "ro.min.fling_velocity=8000" >>$file
+	busybox echo "touch.pressure.scale=0.1" >>$file
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop	
+fi
+fi
+
+if  [ $jj -eq 8 ];then
+busybox clear
+if [ "`grep =logcatt= /system/build.prop`" ];then
+	sed -i 's/=logcatt=//g' /system/build.prop	
+	sed -i 's/logcat.live=disable//g' /system/build.prop	
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop	
+else
+	busybox clear
+	busybox echo "Memproses Disable Logcat"
+	busybox echo "" >>$file
+	busybox echo "#=logcatt=" >>$file
+	busybox echo "logcat.live=disable" >>$file
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop	
+fi
+fi
+
+if  [ $jj -eq 9 ];then
+busybox clear
+if [ "`grep =dalvikx= /system/build.prop`" ];then
+	sed -i 's/=dalvikx=//g' /system/build.prop
+	sed -i 's/dalvik.vm.dex2oat-filter=speed//g' /system/build.prop
+	sed -i 's/dalvik.vm.image-dex2oat-filter=speed//g' /system/build.prop
+	sed -i 's/dalvik.vm.execution-mode=int:jit//g' /system/build.prop
+	sed -i 's/dalvik.vm.checkjni=false//g' /system/build.prop
+	sed -i 's/dalvik.vm.dexopt-data-only=1//g' /system/build.prop
+	sed -i 's/dalvik.vm.lockprof.threshold=250//g' /system/build.prop
+	sed -i 's/dalvik.vm.dexopt-flags=o=a,m=y,v=n//g' /system/build.prop
+	sed -i 's/dalvik.vm.check-dex-sum=false//g' /system/build.prop
+	sed -i 's/dalvik.vm.usejit=true//g' /system/build.prop
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop	
+else
+	busybox clear
+	busybox echo "Memproses Dalvik VM"
+	busybox echo "" >>$file
+	busybox echo "#=dalvikx=" >>$file
+	busybox echo "dalvik.vm.dex2oat-filter=speed" >>$file
+	busybox echo "dalvik.vm.image-dex2oat-filter=speed" >>$file
+	busybox echo "dalvik.vm.execution-mode=int:jit" >>$file
+	busybox echo "dalvik.vm.checkjni=false" >>$file
+	busybox echo "dalvik.vm.dexopt-data-only=1" >>$file
+	busybox echo "dalvik.vm.lockprof.threshold=250" >>$file
+	busybox echo "dalvik.vm.dexopt-flags=o=a,m=y,v=n" >>$file
+	busybox echo "dalvik.vm.check-dex-sum=false" >>$file
+	busybox echo "dalvik.vm.usejit=true" >>$file
+	busybox echo ""
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 1.5
+	busybox clear
+	busybox sh /system/etc/NGZ/00NGZprop	
+fi
+busybox clear
+fi
+
+if [ $jj -eq 10 ];then
+	busybox clear
+	busybox sh /system/bin/11ngz
+fi	

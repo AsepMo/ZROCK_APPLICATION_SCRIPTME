@@ -1,0 +1,834 @@
+#!/system/bin/sh
+#=======================================================================#
+#  Copyright (C) 2017 MUHAMMAD IRHAM F All Rights Reserved
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+busybox clear
+busybox mount -o remount,rw /system 2> /dev/null
+busybox mount -o remount,rw / 2> /dev/null
+busybox mount -o remount,rw rootfs 2> /dev/null
+
+#########
+#ALL PATH
+#########
+
+aktif=/system/etc/init.d
+path=/system/etc/NGZ
+adspath=/system/etc/NGZ/NGZADBLOCK
+inti=/system/bin
+busybox chmod 755 $path;
+
+#garis
+garis1="\e[0;100m========================================\e[00;37;40m"
+garis2="\e[0;90m========================================\e[00;37;40m"
+
+########
+#bersihkan 
+########
+busybox clear
+###########
+#BUILD PROP
+###########
+if [ "`grep =LiquidUI= /system/build.prop`" ];then
+	liquid="\e[1;32mOn\e[0m"
+else
+	liquid="\e[1;31mOff\e[0m"
+fi
+
+if [ "`grep =Bscroll= /system/build.prop`" ];then
+	bscroll="\e[1;32mOn\e[0m"
+else
+	bscroll="\e[1;31mOff\e[0m"
+fi
+
+if [ "`grep =rmvboot= /system/build.prop`" ];then
+	rmvboot="\e[1;32mOn\e[0m"
+else
+	rmvboot="\e[1;31mOff\e[0m"
+fi
+
+if [ -e $aktif/00NGZ_BATERAI ];then
+   pro="\e[1;41m BATERAI \e[0m"
+elif [ -e $aktif/00NGZ_BALANCE ];then
+   pro="\e[1;44m BALANCE \e[0m"
+elif [ -e $aktif/00NGZ_PERFORMA ];then
+   pro="\e[1;45m PERFORMA \e[0m"
+else
+   pro="\e[1;100m DEFAULT \e[0m"
+fi
+
+#Bashcolor
+blue='\e[1;34m' 
+green='\e[1;32m' 
+purple='\e[1;35m' 
+cyan='\e[1;36m' 
+red='\e[1;31m' 
+white='\e[1;37m' 
+###########
+
+busybox echo -e $garis1;
+busybox echo -e "$red @#@#@#<$> $green NGEBUTZ WIZARD $white <$>#@#@#@"
+busybox echo -e $garis1;
+busybox echo ""
+busybox echo -e "[1]. \e[1;96mPROFILE\e[00;37;40m || $pro"
+busybox echo -e $garis2
+busybox echo -e "[2]. \e[35mUltimate BOOSTER\e[0m" 
+busybox echo -e $garis2
+busybox echo -e "[3]. \e[94mSistem Tweaks\e[0m"
+busybox echo -e $garis2
+busybox echo -e "[4]. \e[33mMemori Tweaks\e[0m"
+busybox echo -e $garis2
+busybox echo -e "[5]. \e[32mTampilan Tweaks\e[0m"
+busybox echo ""
+busybox echo -e $garis1
+busybox echo ""
+busybox echo "[6]. Power Tools"
+busybox echo -e $garis2
+busybox echo "[7]. Power Menu"
+busybox echo -e $garis2
+busybox echo "[8]. Informasi Hp"
+busybox echo -e $garis2
+busybox echo "[9]. Kembali ke Home"
+busybox echo -e $garis2
+busybox echo "[10]. Keluar"
+busybox echo -e $garis2
+busybox echo -n "Masukan Pilihan (1-10) : " 
+read menu
+case "$menu" in
+
+1)
+cloe=/system/etc/init.d
+busybox clear
+busybox echo -e $garis1;
+busybox echo -e "\e[1;91mX===PROFILE===X\e[00;37;40m"
+busybox echo -e $garis1;
+busybox echo ""
+busybox echo "[1]. Baterai"
+busybox echo -e $garis2
+busybox echo "[2]. Balance"
+busybox echo -e $garis2
+busybox echo "[3]. Performa"
+busybox echo -e $garis2
+busybox echo "[4]. Keterangan"
+busybox echo -e $garis2
+busybox echo "[5]. Nonaktifkan Profile"
+busybox echo -e $garis2
+busybox echo "[6]. Kembali"
+busybox echo -e $garis2
+busybox echo -n "Masukan Pilihan (1-5) : "
+read mu
+
+if [ $mu -eq 1 ];then
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox echo "Menonaktifkan Profile Baterai"
+busybox rm -f $cloe/00NGZ_BATERAI
+busybox echo ""
+busybox echo "Proses Selesai, kembali"
+busybox sleep 2
+sh /system/bin/10ngz
+else
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+busybox rm -f /system/etc/init.d/00NGZgov
+busybox rm -f /system/etc/init.d/00NGZiosc
+busybox rm -f /system/etc/init.d/00NGZkernel
+busybox rm -f /system/etc/init.d/00NGZkernel_panic
+busybox rm -f /system/etc/init.d/00NGZksm
+busybox rm -f /system/etc/init.d/00NGZlmkb
+busybox rm -f /system/etc/init.d/00NGZlmkp
+busybox rm -f /system/etc/init.d/00NGZlmkm
+busybox rm -f /system/etc/init.d/00NGZmps
+busybox rm -f /system/etc/init.d/00NGZoom
+busybox rm -f /system/etc/init.d/00NGZsdcardspeedfix
+busybox rm -f /system/etc/init.d/00NGZvmfix
+busybox rm -f /system/etc/init.d/90ct
+busybox rm -f /system/etc/init.d/90gt
+busybox rm -f /system/etc/init.d/90io
+busybox rm -f /system/etc/init.d/00NGZmedia
+
+busybox clear
+busybox echo "Memproses Profile Baterai..."
+busybox sleep 2
+busybox cp /system/etc/NGZ/profile/00NGZ_BATERAI $cloe
+busybox chmod 755 $cloe/00NGZ_BATERAI
+busybox echo ""
+busybox echo "Proses selesai, segera reboot..."
+busybox echo ""
+busybox sleep 1
+busybox echo "kembali..."
+busybox sleep 2
+sh /system/bin/10ngz
+fi
+elif [ $mu -eq 2 ];then
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox echo "Menonaktifkan Profile Balance"
+busybox rm -f $cloe/00NGZ_BALANCE
+busybox echo ""
+busybox echo "Proses Selesai, kembali"
+busybox sleep 2
+sh /system/bin/10ngz
+else
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi
+
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+busybox rm -f /system/etc/init.d/00NGZgov
+busybox rm -f /system/etc/init.d/00NGZiosc
+busybox rm -f /system/etc/init.d/00NGZkernel
+busybox rm -f /system/etc/init.d/00NGZkernel_panic
+busybox rm -f /system/etc/init.d/00NGZksm
+busybox rm -f /system/etc/init.d/00NGZlmkb
+busybox rm -f /system/etc/init.d/00NGZlmkp
+busybox rm -f /system/etc/init.d/00NGZlmkm
+busybox rm -f /system/etc/init.d/00NGZmps
+busybox rm -f /system/etc/init.d/00NGZoom
+busybox rm -f /system/etc/init.d/00NGZsdcardspeedfix
+busybox rm -f /system/etc/init.d/00NGZvmfix
+busybox rm -f /system/etc/init.d/90ct
+busybox rm -f /system/etc/init.d/90gt
+busybox rm -f /system/etc/init.d/90io
+busybox rm -f /system/etc/init.d/00NGZmedia
+busybox clear
+busybox echo "Memproses Profile Balance..."
+busybox sleep 2
+busybox cp /system/etc/NGZ/profile/00NGZ_BALANCE $cloe
+busybox chmod 755 $cloe/00NGZ_BALANCE
+busybox echo ""
+busybox echo "Proses selesai, segera reboot..."
+busybox echo ""
+busybox sleep 1
+busybox echo "kembali..."
+busybox sleep 2
+sh /system/bin/10ngz
+fi
+elif [ $mu -eq 3 ];then
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox echo "Menonaktifkan Profile Performa"
+busybox rm -f $cloe/00NGZ_PERFORMA
+busybox echo ""
+busybox echo "Proses Selesai, kembali"
+busybox sleep 2
+sh /system/bin/10ngz
+else
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi
+busybox rm -f /system/etc/init.d/00NGZgov
+busybox rm -f /system/etc/init.d/00NGZiosc
+busybox rm -f /system/etc/init.d/00NGZkernel
+busybox rm -f /system/etc/init.d/00NGZkernel_panic
+busybox rm -f /system/etc/init.d/00NGZksm
+busybox rm -f /system/etc/init.d/00NGZlmkb
+busybox rm -f /system/etc/init.d/00NGZlmkp
+busybox rm -f /system/etc/init.d/00NGZlmkm
+busybox rm -f /system/etc/init.d/00NGZmps
+busybox rm -f /system/etc/init.d/00NGZoom
+busybox rm -f /system/etc/init.d/00NGZsdcardspeedfix
+busybox rm -f /system/etc/init.d/00NGZvmfix
+busybox rm -f /system/etc/init.d/90ct
+busybox rm -f /system/etc/init.d/90gt
+busybox rm -f /system/etc/init.d/90io
+busybox rm -f /system/etc/init.d/00NGZmedia
+
+busybox clear
+busybox echo "Memproses Profile Performa..."
+busybox sleep 2
+busybox cp /system/etc/NGZ/profile/00NGZ_PERFORMA $cloe
+busybox chmod 755 $cloe/00NGZ_PERFORMA
+busybox echo ""
+busybox echo "Proses selesai, segera reboot..."
+busybox echo ""
+busybox sleep 1
+busybox echo "kembali..."
+busybox sleep 2
+sh /system/bin/10ngz
+fi
+elif [ $mu -eq 4 ];then
+busybox clear
+busybox echo "X===PENJELASAN===X"
+busybox echo ""
+busybox echo "1. Profile sudah menentukan settingan dia sendiri, jadi jangan aktifkan tweak lain"
+busybox echo ""
+busybox echo "2. Matikan Profile apabila ingin menggunakan tweak lain"
+busybox echo ""
+busybox echo -n "Tekan y untuk keluar dari sini : "
+read mz
+if [ $mz = "y" ];then
+busybox clear
+sh /system/bin/10ngz
+else
+busybox sleep 1
+fi
+elif [ $mu -eq 5 ];then
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+busybox clear
+busybox echo "Proses selesai, kembali"
+busybox sleep 2
+sh /system/bin/10ngz
+elif [ $mu -eq 6 ];then
+busybox clear
+sh /system/bin/10ngz
+else
+busybox clear
+busybox echo "Inputan yang anda masukan salah, harap ulangi lagi nanti"
+busybox sleep 3
+busybox clear
+fi
+;;
+
+2)
+  busybox clear;
+  busybox sh $path/00NGZ_cronmnu
+;;
+3)
+	sh /system/bin/11ngz
+;;
+4)
+	sh /system/bin/12ngz
+;;
+5)
+	busybox clear;
+	busybox echo -e $garis1;
+	busybox echo -e "\e[1;32mTampilan Tweaking\e[00;37;40m"
+	busybox echo -e $garis1;
+	busybox echo ""
+	busybox echo -e "[1]. Liquid Smooth UI           || $liquid"
+	busybox echo -e $garis2
+	busybox echo -e "[2]. Better Scrolling           || $bscroll"
+	busybox echo -e $garis2
+	busybox echo -e "[3]. Disable Animasi Booting    || $rmvboot"
+	busybox echo -e $garis2
+	busybox echo "[4]. Kembali ke menu utama"
+	busybox echo -e $garis2
+	busybox echo -n "Pilih menu (1-4) : "
+	read ttm
+	if [ $ttm -eq 1 ];then
+	if [ "`grep =LiquidUI= /system/build.prop`" ];then
+	busybox clear
+	busybox echo "Menonaktifkan Tweak"
+	busybox sleep 2
+	busybox clear
+	sed -i 's/#=LiquidUI=//g' /system/build.prop
+	sed -i 's/persist.service.pcsync.enable=0//g' /system/build.prop
+	sed -i 's/persist.service.lgospd.enable=0//g' /system/build.prop
+	sed -i 's/touch.pressure.scale=0.001//g' /system/build.prop
+	busybox clear
+	busybox echo "Proses selesai, kembali..."
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/10ngz
+	else
+	busybox clear
+	busybox echo "Mengaktifkan Tweak"
+	busybox sleep 2
+	busybox clear
+	ngz=/system/etc/NGZ/ngzlog/liquid.log 
+	busybox rm -f $ngz
+	busybox touch $ngz
+	ld=/system/build.prop
+	busybox echo "" >>$ld
+	busybox echo "#=LiquidUI=" >>$ld
+	busybox echo "persist.service.pcsync.enable=0" >>$ld
+	busybox echo "persist.service.lgospd.enable=0" >>$ld
+	busybox echo "touch.pressure.scale=0.001" >>$ld
+	busybox echo "" >>$ld
+	busybox clear
+	busybox echo "" | tee -a $ngz
+	busybox echo "$(date +"%d-%Y %H:%M" ) Tweak Liquid Smooth UI Sukses di pasang" | tee -a $ngz
+	busybox sleep 2
+	busybox clear
+	busybox echo "Proses selesai, kembali..."
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/10ngz
+	fi
+	elif [ $ttm -eq 2 ];then
+	if [ "`grep =Bscroll= /system/build.prop`" ];then
+	busybox clear
+	busybox echo "Menonaktifkan Tweak"
+	busybox sleep 2
+	busybox clear
+	sed -i 's/#=Bscroll=//g' /system/build.prop
+	sed -i 's/ro.max.fling_velocity=12000//g' /system/build.prop
+	sed -i 's/ro.min.fling_velocity=8000//g' /system/build.prop
+	sed -i 's/touch.pressure.calibration=amplitude//g' /system/build.prop
+	sed -i 's/touch.pressure.source=default//g' /system/build.prop
+	sed -i 's/touch.pressure.scale=0.001//g' /system/build.prop
+	busybox clear
+	busybox echo "Proses selesai, kembali..."
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/10ngz
+	else
+	busybox clear
+	busybox echo "Mengaktifkan Tweak"
+	busybox sleep 2
+	busybox clear
+   ngz=/system/etc/NGZ/ngzlog/betters.log 
+	busybox rm -f $ngz
+	busybox touch $ngz
+	busybox clear
+	busybox echo "Memproses..."
+	busybox sleep 1
+	li=/system/build.prop
+	busybox echo "" >>$li
+	busybox echo "#=Bscroll=" >>$li
+	busybox echo "ro.max.fling_velocity=12000" >>$li
+	busybox echo "ro.min.fling_velocity=8000" >>$li
+	busybox echo "touch.pressure.calibration=amplitude" >>$li
+	busybox echo "touch.pressure.source=default" >>$li
+	busybox echo "touch.pressure.scale=0.001" >>$li
+	busybox echo "" >>$li
+	busybox clear
+	busybox echo "" | tee -a $ngz
+	busybox echo "$(date +"%d-%Y %H:%M" ) Tweak Better Scrolling Sukses di pasang" | tee -a $ngz
+	busybox sleep 2
+	busybox clear
+	busybox echo "Proses selesai, kembali..."
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/10ngz
+	fi
+	elif [ $ttm -eq 3 ];then
+	if [ "`grep =rmvboot= /system/build.prop`" ];then
+	busybox clear
+	busybox echo "Menonaktifkan Tweak"
+	busybox sleep 2
+	busybox clear
+	sed -i 's/#=rmvboot=//g' /system/build.prop
+	sed -i 's/debug.sf.nobootanimation=1//g' /system/build.prop
+	sed -i 's/ro.config.hw_quickpoweron=true//g' /system/build.prop
+	busybox echo "Proses selesai, kembali..."
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/10ngz	
+	else
+	busybox clear
+	busybox echo "Mengaktifkan Tweak"
+	busybox sleep 2
+	ngz=/system/etc/NGZ/ngzlog/rmvboot.log
+	busybox rm -f $ngz
+	busybox touch $ngz
+	la=/system/build.prop
+	busybox echo "" >>$la
+	busybox echo "#=rmvboot=" >>$la
+	busybox echo "debug.sf.nobootanimation=1" >>$la
+	busybox echo "ro.config.hw_quickpoweron=true" >>$la
+	busybox echo "" >>$la
+	busybox clear
+	busybox echo "" | tee -a $ngz
+	busybox echo "$(date +"%d-%Y %H:%M" ) Tweak Menghilangkan Boot Sukses di pasang" | tee -a $ngz
+	busybox sleep 2
+	busybox clear
+	busybox echo "Proses selesai, kembali..."
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/10ngz
+	fi
+	elif [ $ttm -eq 4 ];then
+	busybox clear
+	sh /system/bin/10ngz
+	else 
+	busybox echo "Pilihan yang anda masukan salah"
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/10ngz
+	fi
+;;
+6)
+	busybox clear;
+	busybox echo -e $garis1;
+	busybox echo -e "\e[1;32mPower Tools\e[00;37;40m"
+	busybox echo -e $garis1;
+	busybox echo ""
+	busybox echo "[1]. Bersihkan Cache"
+	busybox echo -e $garis2
+	busybox echo "[2]. Bersihkan Dalvik Cache"
+	busybox echo -e $garis2
+	busybox echo "[3]. Fstrim"
+	busybox echo -e $garis2
+	busybox echo "[4]. Zipalign"
+	busybox echo -e $garis2
+	busybox echo "[5]. Kembali"
+	busybox echo -e $garis2
+	busybox echo -n "Masukan pilihan (1-5) : "
+	read cc
+	if [ $cc -eq 1 ];then
+		busybox clear
+	busybox echo -e $garis1
+if [ -e /system/etc/init.d/00NGZcache ];then
+	busybox echo -e "\e[1;32mCache sudah aktif\e[0m"
+	else
+	busybox echo -e "\e[1;31mCache belum aktif\e[0m"
+   fi
+	busybox echo -e $garis1
+		busybox echo "Memproses Pembersihan Cache"
+	busybox echo ""
+		busybox sleep 2
+		busybox echo -n "Lanjutkan ? (yes/no) : "
+		read q
+	if [ $q = yes ];then
+		busybox mount -o remount,rw /data
+		busybox clear 
+		busybox find /data/data -type d -iname "*cache*" -maxdepth 2 -mindepth 2 -exec busybox rm -fr {}/ ';' -exec echo "Terhapus {}" ';'
+		busybox rm -f /data/slog/* 2>/dev/null 
+		busybox rm -f /data/system/dropbox/*.* 2>/dev/null
+		busybox rm -f /data/mlog/* 2>/dev/null
+		busybox rm -f /data/log/*.* 2>/dev/null
+		busybox rm -f /dev/log/main/* 2>/dev/null
+		busybox rm -f /data/backup/pending/*.tmp 2>/dev/null
+		busybox rm -f /data/tombstones/*.* 2>/dev/null
+     busybox rm -f /data/last_alog/* 2>/dev/null
+     busybox rm -f /data/last_kmsg/* 2>/dev/null
+		busybox rm -f /data/local/*.apk 2>/dev/null
+		busybox rm -f /data/local/tmp/* 2>/dev/null
+		buysbox rm -f /data/anr/* 2>/dev/null 
+     busybox rm -f /cache/*.apk 2>/dev/null
+     busybox rm -f /cache/*.tmp 2>/dev/null
+     busybox rm -f /data/data/*/cache/* 2>/dev/null
+     busybox rm -f /data/clipboard/* 2>/dev/null
+     busybox rm -f /dev/log/main/* 2>/dev/null
+     busybox rm -f /data/mlog/* 2>/dev/null
+     busybox rm -f /data/cache/*.* 2>/dev/null
+     busybox rm -f /data/log/* 2>/dev/null
+     busybox rm -f /data/system/dropbox/* 2>/dev/null
+     busybox rm -f /cache/*.log 2>/dev/null
+     busybox rm -f /data/system/usagestats/* 2>/dev/null
+		buysbox sleep 2
+		busybox clear
+		busybox echo "Proses selesai, kembali..."
+		busybox echo ""
+		busybox echo -n "Aktifkan Saat Reboot ? (yes/no) : "
+     read yy
+if [ $yy = "yes" ];then
+busybox cp /system/etc/NGZ/00NGZcache /system/etc/init.d
+busybox chmod 775 system/etc/init.d/00NGZcache
+busybox sleep 1
+busybox echo ""
+busybox echo "Proses selesai, kembali..."
+busybox echo ""
+elif [ $yy = "no" ];then
+busybox rm -f /system/etc/init.d/00NGZcache
+busybox sleep 1
+busybox echo ""
+busybox echo "Proses selesai, kembali..."
+busybox echo ""
+fi
+
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/10ngz
+	elif [ $q = no ];then
+		busybox clear
+		busybox echo "Proses di batalkan..."
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/10ngz
+	fi
+	fi
+	if [ $cc -eq 2 ];then
+		busybox clear
+		busybox echo "Memproses Pembersihan Dalvik Cache"
+		busybox echo ""
+		busybox echo -n "Lanjutkan? (yes/no) : "
+		read y
+	if [ $y = yes ];then
+		busybox mount -o remount,rw /data
+		busybox clear 
+		busybox sleep 2
+		busybox echo "Memproses..."
+		busybox find /data -type d -iname "dalvik-cache*" -exec busybox rm -fr {}/ ';'
+		busybox find /cache -type d -iname "dalvik-cache*" -exec busybox rm -fr {}/ ';'
+		busybox clear
+		busybox echo "Proses selesai, kembali..."
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/10ngz
+	elif [ $y = no ];then
+		busybox clear
+		busybox echo "Proses di batalkan..."
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/10ngz
+	fi
+	fi
+	
+	if [ $cc -eq 3 ];then
+	busybox mount -o remount,rw /system
+	mount -o remount,rw /system
+	busybox mount -o remount,rw /
+	mount -o remount,rw /
+	ngz=/system/etc/NGZ/ngzlog/fstrim.log 
+	busybox rm -f $ngz
+	busybox touch $ngz
+	busybox clear
+	busybox echo "Memproses Fstrim..." | tee -a $ngz
+	busybox echo ""
+	busybox fstrim -v /cache  | tee -a $ngz
+	busybox fstrim -v /system | tee -a $ngz
+	busybox fstrim -v /data | tee -a $ngz
+	busybox fstrim -v /preload | tee -a $ngz
+	busybox fstrim -v /efs | tee -a $ngz
+	busybox echo ""
+	busybox echo "Proses selesai, kembali..."
+	busybox sleep 1
+	busybox clear
+	sh /system/bin/10ngz
+	fi
+
+	if [ $cc -eq 4 ];then
+	busybox clear
+	busybox echo -e $garis1
+	if [ -e /system/etc/init.d/00NGZzipalign ];then
+	busybox echo -e "\e[1;32mZipalign sudah aktif\e[0m"
+	else
+	busybox echo -e "\e[1;31mZipalign belum aktif\e[0m"
+   fi
+	busybox echo -e $garis1
+	busybox echo ""
+	busybox echo "Memproses Zipalign"
+	busybox echo ""
+	busybox rm -f /data/zipalign.db
+	busybox chmod 755 /system/etc/NGZ/00NGZzipalign
+	sh /system/etc/NGZ/00NGZzipalign
+	busybox echo "Proses selesai, segera reboot..."
+	busybox echo ""
+	busybox sleep 1
+	busybox echo "kembali..."
+	busybox echo ""
+	busybox echo -n "Aktifkan saat reboot (yes/no) ? : "
+	read zmu
+	if [ $zmu = yes ];then
+	busybox clear
+	busybox cp /system/etc/NGZ/00NGZzipalign /system/etc/init.d
+	busybox chmod 755 /system/etc/init.d/00NGZzipalign
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/10ngz
+	elif [ $zmu = no ];then
+	busybox clear
+	if [ -e /system/etc/init.d/00NGZzipalign ];then
+	busybox rm -f /system/etc/init.d/00NGZzipalign
+	fi
+	busybox echo "Proses selesai, kembali"
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/10ngz
+else
+	busybox echo "inputan salah, harap ulangi lagi"
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/10ngz
+fi
+fi
+
+	if [ $cc -eq 5 ];then
+	busybox clear
+	sh /system/bin/10ngz
+	fi
+;;
+7)
+busybox clear;
+busybox echo -e $garis1;
+busybox echo -e "\e[1;32mPower Menu\e[00;37;40m"
+busybox echo -e $garis1;
+busybox echo ""
+busybox echo "[1]. Shut Down"
+busybox echo -e $garis2
+busybox echo "[2]. Reboot"
+busybox echo -e $garis2
+busybox echo "[3]. Reboot ke Recovery (TWRP/CWM)"
+busybox echo -e $garis2
+busybox echo "[4]. Reboot ke Bootloader"
+busybox echo -e $garis2
+busybox echo "[5]. Kembali ke menu awal"
+busybox echo -e $garis2
+busybox echo -n "Masukan Pilihan mu : " 
+read pme
+if [ $pme -eq 1 ];then
+busybox clear
+busybox echo "Hp akan di matikan/shutdown"
+busybox sleep 3
+busybox clear
+busybox echo "1"
+busybox sleep 1
+busybox clear
+busybox echo "2"
+busybox sleep 1
+busybox clear
+busybox echo "3"
+busybox sleep 1
+su -c reboot -p 
+elif [ $pme -eq 2 ];then
+busybox clear
+busybox echo "Hp akan di Reboot/Restart"
+busybox sleep 3
+busybox clear
+busybox echo "1"
+busybox sleep 1
+busybox clear
+busybox echo "2"
+busybox sleep 1
+busybox clear
+busybox echo "3"
+busybox sleep 1
+su -c reboot
+elif [ $pme -eq 3 ];then
+busybox clear
+busybox echo "Hp akan di Reboot ke Custom Recovery"
+busybox sleep 3
+busybox clear
+busybox echo "1"
+busybox sleep 1
+busybox clear
+busybox echo "2"
+busybox sleep 1
+busybox clear
+busybox echo "3"
+busybox sleep 1
+su -c reboot recovery 
+busybox sleep 1
+elif [ $pme -eq 4 ];then
+busybox clear
+busybox echo "Hp akan di Reboot ke Bootloader"
+busybox sleep 3
+busybox clear
+busybox echo "1"
+busybox sleep 1
+busybox clear
+busybox echo "2"
+busybox sleep 1
+busybox clear
+busybox echo "3"
+busybox sleep 1
+su -c reboot bootloader 
+busybox sleep 1
+elif [ $pme -eq 5 ];then
+busybox clear
+busybox sh /system/bin/10ngz
+else
+busybox sleep 1
+busybox sh /system/bin/10ngz
+fi
+;;
+8)
+	busybox clear;
+	busybox echo "Sedang mengumpulkan Informasi Hp anda"
+	busybox sleep 2
+	busybox clear
+	busybox echo "Memproses..."
+	busybox sleep 2
+	busybox clear
+	busybox echo -e $garis1
+	busybox echo -e "\e[1;32mDaftar Informasi Hp\e[00;37;40m"
+	busybox echo -e $garis1
+	busybox echo ""
+	busybox echo -e "=====\e[1;36mInformasi CPU-GPU-DRIVERS\e[00;37;40m====="
+	busybox echo ""
+	busybox echo -n "1. Frekuensi CPU Terendah: "; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+	busybox echo -n "2. Frekuensi CPU Tertinggi: "; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+	busybox echo -n "3. Frekuensi CPU saat ini: "; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+	busybox echo -n "4. Tipe Governor saat ini: "; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+	busybox echo -n "5. GPU Vendor : ";
+	getprop ro.product.cpu.abilist
+	busybox echo -n "6. Drivers :";
+	cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_driver
+	busybox echo ""
+	busybox echo -e "=====\e[1;36mInformasi Sistem\e[00;37;40m====="
+	busybox echo ""
+	busybox echo -n "1. Arsitektur Kernel : ";
+	getprop ro.product.cpu.abi
+	busybox echo -n "2. Versi OS : ";
+	getprop ro.build.version.release
+	busybox echo -n "3. SDK/API : ";
+	getprop ro.build.version.sdk
+	busybox echo -n "4. Security Patch : ";
+	getprop ro.build.version.security_patch
+	busybox echo -n "5. Board Model : ";
+	getprop ro.product.board
+	busybox echo -n "6. Build ID : ";
+	getprop ro.build.id
+	busybox echo -n "7. Tipe OS : ";
+    cat /proc/sys/kernel/ostype
+    busybox echo -n "8. OS Developer : ";
+    cat /proc/sys/kernel/osrelease
+    busybox echo "9. Versi : ";
+    cat /proc/version
+	busybox echo ""
+	busybox echo -e "=====\e[1;36mInformasi Device\e[00;37;40m====="
+	busybox echo ""
+	busybox echo -n "1. Model Hp : ";
+	getprop ro.product.model
+	busybox echo -n "2. Brand Hp : ";
+	getprop ro.product.brand
+	busybox echo -n "3. Produk Hp : ";
+	getprop ro.product.device
+	busybox echo -n "4. Local : ";
+	getprop ro.product.locale
+	busybox echo -n "5. Hostname : ";
+	cat /proc/sys/kernel/hostname
+	busybox echo ""
+	busybox echo ""
+	busybox echo -n "Ketikan y untuk kembali : "
+	read mnm
+	if [ $mnm = y ];then
+	busybox clear
+	sh /system/bin/10ngz
+	elif [ $mnm = no ];then
+		busybox clear
+		busybox sleep 2
+		busybox echo "Proses di batalkan..."
+		busybox sleep 2
+		busybox sh /system/bin/10ngz
+	else 
+		busybox sh /system/bin/10ngz
+	fi
+;; 
+9)
+busybox clear;
+busybox echo "Kembali..."
+busybox sleep 1
+sh /system/bin/00ngz
+exit
+;;
+10)
+busybox clear;
+exit
+;;
+*)
+busybox clear
+busybox echo "inputan yang anda masukan salah"
+busybox sleep 2
+busybox clear
+sh /system/bin/10ngz
+;;
+esac
+exit 0

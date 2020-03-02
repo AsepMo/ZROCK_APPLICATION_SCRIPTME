@@ -1,0 +1,113 @@
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+path=/system/etc/init.d
+iopath=/system/etc/NGZ/NGZMEM
+#garis
+garis1="\e[0;100m========================================\e[00;37;40m"
+if [ -e $path/90io ];then
+	ios="\e[1;32mValue Di Simpan\e[0m"
+else
+	ios="\e[1;31mValue Belum Simpan\e[0m"
+fi
+	busybox clear
+	busybox echo -n "Lanjutkan Proses ? (yes/no) : "
+	read baca
+	if [ $baca = "yes" ];then
+	busybox clear
+	busybox echo -e $garis1
+	busybox echo -e "\e[1;32mIO SCHEDULER TUNNER\e[00;37;40m"
+	busybox echo -e $garis1
+	busybox echo ""
+	#path
+	sc=$(cat /sys/block/mmcblk0/queue/scheduler)
+	#value
+	busybox echo -e "Tipe IO Scheduler yang tersedia: "
+	busybox echo ""
+#####OURSHIT#####
+max=10
+for number in `seq 1 $max`
+do
+angka=`awk '{print $'$number'}' /sys/block/mmcblk0/queue/scheduler`
+if [ -z $angka ];then
+echo $number. Tidak Tersedia
+else
+echo $number. $angka
+fi
+done
+#################
+
+	busybox echo ""
+	busybox echo -e $garis1
+	busybox echo -e "Kondisi IO Tuner || $ios" 
+	busybox echo -e $garis1
+	busybox echo ""
+	busybox echo -n "Masukan Tipe IO SCHEDULER : "
+	read sch
+    if [ $sch ]; then
+    if [ $(echo $sc | grep -q -E "$sch"; echo $?) -eq 0 ]; then
+    busybox echo $sch > /sys/block/mmcblk0/queue/scheduler 
+	busybox echo ""
+	busybox sleep 2
+   busybox echo ""
+   busybox echo -n "Aktifkan saat reboot ? (yes/no) : " 
+   read mnu
+   if [ $mnu = "yes" ];then
+		if [ -e $path/90io ];then
+		busybox rm -rf $path/90io
+		fi
+		busybox touch $path/90io
+busybox chmod 755 $path/90io
+busybox cat > $path/90io << ioyahud
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+busybox echo "$sch" > /sys/block/mmcblk0/queue/scheduler 
+ioyahud
+  
+   sh $path/90io
+   elif [ $mnu = "no" ]; then
+   if [ -e $path/90io ];then
+     busybox rm -rf $path/90io
+	fi
+   busybox sleep 1
+   else
+   busybox sleep 1
+fi
+else
+   busybox echo ""
+   busybox echo "Waduh valuenya salah tuh, ulangi lagi ya" 1>&2
+   busybox echo ""
+   busybox sh $iopath/00NGZiotuner
+    fi
+    fi
+  busybox echo ""
+  busybox echo "Proses selesai, Kembali..."
+  busybox sleep 1.5
+  busybox sh /system/bin/12ngz
+   elif [ $baca = "no" ];then
+   busybox clear
+   busybox echo "Proses tidak di lanjutkan, kembali..."
+   busybox sleep 2
+   busybox sh /system/bin/12ngz
+   else
+   busybox clear
+   busybox echo "Maaf, harap ulangi inputan anda"
+   busybox sleep 2
+   busybox clear
+   sh $iopath/00NGZiotuner
+   fi

@@ -1,0 +1,174 @@
+#!/system/bin/sh
+#=======================================================================#
+#  Copyright (C) 2017 MUHAMMAD IRHAM F All Rights Reserved
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+busybox clear
+garis1="\e[0;90m========================================\e[00;37;40m"
+busybox echo "Mengecek Sistem..."
+busybox sleep 1
+busybox echo ""
+   id=`id`; id=`busybox echo ${id#*=}`; id=`busybox echo ${id%%\(*}`; id=`busybox echo ${id%% *}`
+   if [ "$id" != "0" ] && [ "$id" != "root" ]; 
+   then
+   busybox echo "Maaf, sistem tidak bisa mendeteksi root"
+   busybox echo ""
+   busybox echo "Pastikan anda sudah mengetikan 'su'"
+   busybox sleep 2
+   busybox clear
+   busybox echo "Keluar dari tweaks"
+   busybox sleep 2
+   exit
+   fi
+
+#Bring Permission
+busybox chmod 755 /system/etc/init.d/* 2>/dev/null
+#permission finish
+
+busybox echo -e "Semua normal, sistem telah \e[1;32mONLINE \e[00;37;40m"
+busybox echo ""
+busybox echo "Membuka Menu..."
+busybox sleep 2
+busybox clear
+busybox echo ""
+#Bashcolor
+blue='\e[1;34m' 
+green='\e[1;32m' 
+purple='\e[1;35m' 
+cyan='\e[1;36m' 
+red='\e[1;31m' 
+white='\e[1;37m' 
+###########
+busybox echo -e $green " _^    <_________________________>"
+busybox echo -e $green "|@!\  |!|  /@@@@@>  <@@:!@!@!@!/"
+busybox echo -e $green "|!|@\ |:| |@|             /:@!/"
+busybox echo -e $green "|:|\:\|:| |@|  ____      /@@!/"
+busybox echo -e $green "|!| \:::| |!| <__ @|    /!:@/"
+busybox echo -e $green "|:|  \::| |:|    |:|   /@::/"
+busybox echo -e $green "|$|   \!| \.\____/.|  /!@:/______"
+busybox echo -e $green "|$|    \| <------/0512/----------->"
+busybox echo ""
+busybox echo -e $red "--------*INDONESIAN $white MADE*---------"
+busybox echo ""
+busybox echo -e $blue "[ $cyan B00ST_ $purple YOUR_ $green PH0NE_ ]"
+busybox echo ""
+busybox echo -e $garis1
+busybox echo "[1]. TWEAKS & TOOLS"
+busybox echo -e $garis1
+busybox echo "[2]. Cara Penggunaan"
+busybox echo -e $garis1
+busybox echo "[3]. Logs"
+busybox echo -e $garis1
+busybox echo "[4]. Bersihkan Logs"
+busybox echo -e $garis1
+busybox echo "[5]. Uninstall"
+busybox echo -e $garis1
+busybox echo "[6]. Website Cuman Android"
+busybox echo -e $garis1
+busybox echo "[7]. Facebook - Ngebutz MOD"
+busybox echo -e $garis1
+busybox echo "[8]. Facebook - Cuman Android"
+busybox echo -e $garis1
+busybox echo "[9]. Keluar"
+busybox echo -e $garis1
+busybox echo -n "Masukan Pilihan (1-9) : "
+read mnu
+case $mnu in
+1)
+busybox clear;
+sh /system/bin/10ngz
+;;
+2)
+busybox clear;
+busybox echo "
+
+CARA MENGGUNAKAN : 
+
+1. Pilih tweaks yang ingin anda gunakan
+
+2. Kemudian, pilih sesuai nomornya, apabila
+tersedia nomor 1 sampai 5,
+pilih lah salah satu di antara nomor tersebut
+
+3. Setelah di pilih tweak akan berjalan secara otomatis,
+tapi ada juga yang meminta inputan anda, 
+tinggal anda ikuti saja.
+
+4. Untuk menghapus tweaks ini, 
+anda cukup pilih uninstall saja
+
+Terima kasih telah berpartisipasi :]
+
+From Muhammad Irham - Cuman Android
+"
+busybox echo ""
+busybox echo -n "Ketik y lalu enter untuk kembali : "
+read uu
+if [ $uu = y ];then
+busybox clear
+sh /system/bin/00ngz
+fi
+;;
+3)
+busybox clear;
+busybox cat /system/etc/NGZ/ngzlog/*
+busybox echo ""
+busybox echo -n "Ketik y lalu enter untuk kembali : "
+read uu
+if [ $uu = y ];then
+busybox clear
+sh /system/bin/00ngz
+fi
+;;
+4)
+busybox clear;
+sed -i 's/[a-z]//g' /system/etc/NGZ/ngzlog/*.log
+sed -i 's/[A-Z]//g' /system/etc/NGZ/ngzlog/*.log
+sed -i 's/[0-9]//g' /system/etc/NGZ/ngzlog/*.log
+sed -i 's/://g' /system/etc/NGZ/ngzlog/*.log
+sed -i 's/-//g' /system/etc/NGZ/ngzlog/*.log
+sed -i 's/,//g' /system/etc/NGZ/ngzlog/*.log
+busybox echo "Proses selesai"
+busybox sleep 2
+busybox clear
+sh /system/bin/00ngz
+;;
+5)
+sh /system/bin/00uninstall
+;;
+6)
+su -c "LD_LIBRARY_PATH=/vendor/lib:/system/lib am start http://cuman-android.blogspot.co.id/2018/02/ngebutz-mod-tweak-hp-android.html"
+busybox sleep 2
+sh /system/bin/00ngz
+;;
+7)
+su -c "LD_LIBRARY_PATH=/vendor/lib:/system/lib am start https://m.facebook.com/ngzmod/?ref=bookmarks"
+busybox sleep 2
+sh /system/bin/00ngz
+;;
+8)
+su -c "LD_LIBRARY_PATH=/vendor/lib:/system/lib am start https://m.facebook.com/cumanandroid/"
+busybox sleep 2
+sh /system/bin/00ngz
+;;
+9)
+busybox clear;
+exit 
+;;
+*)
+busybox clear;
+busybox echo "Inputan yang anda masukan salah"
+busybox sleep 2
+busybox clear
+sh /system/bin/00ngz
+;;
+esac
+exit 0

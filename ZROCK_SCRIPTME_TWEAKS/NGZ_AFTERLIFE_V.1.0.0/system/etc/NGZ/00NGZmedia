@@ -1,0 +1,5 @@
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+busybox pgrep mediaserver
+busybox killall -9 mediaserver

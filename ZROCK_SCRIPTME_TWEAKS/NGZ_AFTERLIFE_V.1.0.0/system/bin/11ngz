@@ -1,0 +1,1424 @@
+#!/system/bin/sh
+#=======================================================================#
+#  Copyright (C) 2017 MUHAMMAD IRHAM F All Rights Reserved
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+busybox clear;
+garis1="\e[0;100m========================================\e[00;37;40m"
+garis2="\e[0;90m========================================\e[00;37;40m"
+
+#path
+cloe=/system/etc/init.d
+path=/system/etc/init.d
+cpgp=/system/etc/NGZ/NGZCPGP
+
+#mount
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+#######
+#SISTEM
+#######
+
+if [ -e $path/00NGZgpdfix ];then
+	gps="\e[1;32mDi Simpan\e[0m"
+else
+	gps="\e[1;31mTidak di Simpan\e[0m"
+fi
+
+if [ -e $path/00NGZgov ];then
+	gov="\e[1;32mOn\e[0m"
+else
+	gov="\e[1;31mOff\e[0m"
+fi
+
+if [ -e $path/00NGZkernel ];then
+	kernel="\e[1;32mOn\e[0m"
+else
+	kernel="\e[1;31mOff\e[0m"
+fi
+
+if [ -e $path/00NGZkernel_panic ];then
+	kp="\e[1;32mOn\e[0m"
+else
+	kp="\e[1;31mOff\e[0m"
+fi
+
+if [ -e $path/00NGZksm ];then
+	ksm="\e[1;32mOn\e[0m"
+else
+	ksm="\e[1;31mOff\e[0m"
+fi
+
+if [ -e $path/00NGZksleep ];then
+	ksleep="\e[1;32mOn\e[0m"
+else
+	ksleep="\e[1;31mOff\e[0m"
+fi
+
+if [ -e $path/00NGZmps ];then
+	mps="\e[1;32mOn\e[0m"
+else
+	mps="\e[1;31mOff\e[0m"
+fi
+
+####
+#RAM
+####
+
+if [ -e $path/00NGZlmkb ];then
+	lmkb="\e[1;32mOn\e[0m"
+else
+	lmkb="\e[1;31mOff\e[0m"
+fi
+
+if [ -e $path/00NGZlmkm ];then
+	lmkm="\e[1;32mOn\e[0m"
+else
+	lmkm="\e[1;31mOff\e[0m"
+fi
+
+if [ -e $path/00NGZlmkp ];then
+	lmkp="\e[1;32mOn\e[0m"
+else
+	lmkp="\e[1;31mOff\e[0m"
+fi
+
+if [ -e $path/00NGZlmkt ];then
+	lmkt="\e[1;32mTweak di simpan\e[0m"
+else
+	lmkt="\e[1;31mTweak Belum di simpan\e[0m"
+fi
+
+if [ -e $path/00NGZmedia ];then
+	msk="\e[1;32mOn\e[0m"
+else
+	msk="\e[1;31mOff\e[0m"
+fi
+ 		#run
+		busybox clear
+		busybox echo -e $garis1;
+		busybox echo -e "\e[1;32mSISTEM TWEAKING\e[00;37;40m"
+		busybox echo -e $garis1;
+		busybox echo ""
+		busybox echo "1. Build.Prop Tweaks"
+		busybox echo -e $garis2
+		busybox echo "2. Set CPU & Set GOV"
+		busybox echo -e $garis2
+		busybox echo "3. Kernel Optimizer"
+		busybox echo -e $garis2
+		busybox echo "4. Ram Manager"
+		busybox echo -e $garis2
+		busybox echo "5. Google Play Service Fix"
+		busybox echo -e $garis2
+		busybox echo "6. Heap Size Tuner"
+		busybox echo -e $garis2
+		busybox echo "7. Mpdecision - Battery Saver Qualcomm"
+		busybox echo -e $garis2
+		busybox echo "8. Kembali ke menu utama"
+		busybox echo -e $garis2
+		busybox echo -n "Pilih menu (1-8) : "
+		read menu
+		case "$menu" in 
+1)
+     busybox clear
+     busybox chmod 755 /system/etc/NGZ/00NGZprop
+     sh /system/etc/NGZ/00NGZprop
+;;
+
+2)
+#cpu tunner
+		busybox clear
+		busybox echo -e $garis1;
+		busybox echo -e "\e[1;32mCPU & GPU TUNNER\e[00;37;40m"
+		busybox echo -e $garis1;
+		busybox echo ""
+		busybox echo "1. Set CPU - Merubah Frekuensi CPU"
+		busybox echo -e $garis2
+		busybox echo "2. Set GOV - Merubah Tipe Governor"
+		busybox echo -e $garis2
+		busybox echo -e "3. Governor Optimizer	|| $gov"			
+		busybox echo -e $garis2
+		busybox echo "4. Kembali"
+		busybox echo -e $garis2
+		busybox echo -n "Pilih menu (1-4) : "	
+		read cpu
+
+		if [ $cpu -eq 1 ];then
+		busybox clear
+		busybox chmod 755 $cpgp/00NGZcpu
+		sh $cpgp/00NGZcpu
+		busybox sleep 0.5
+		sh /system/bin/11ngz
+		fi
+		
+		if [ $cpu -eq 2 ];then
+		busybox clear
+		busybox chmod 755 $cpgp/00NGZgpu
+		sh $cpgp/00NGZgpu
+		busybox sleep 0.5
+		sh /system/bin/11ngz
+		fi
+		
+		if [ $cpu -eq 3 ];then
+		if [ -e $path/00NGZgov ];then
+		busybox clear
+		busybox echo "Menonaktifkan Tweak..."
+		busybox rm -rf $path/00NGZgov
+		busybox echo ""
+		busybox echo "Proses selesai, kembali..."
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/11ngz
+		else		
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+busybox touch $path/00NGZgov
+busybox chmod 755 $path/00NGZgov
+busybox cat > $path/00NGZgov << governoro
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+
+#Tweak akan mengoptimasi governor
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/gov.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+
+busybox clear
+busybox echo "Tweak akan memilih settingan terbaik untuk anda..."
+busybox sleep 2
+
+int=/sys/devices/system/cpu/cpufreq/interactive
+ond=/sys/devices/system/cpu/cpufreq/ondemand
+con=/sys/devices/system/cpu/cpufreq/conservative
+pgq=/sys/devices/system/cpu/cpufreq/pegasusq
+sass=/sys/devices/system/cpu/cpufreq/smartassV2
+lion=/sys/devices/system/cpu/cpufreq/lionheart
+lul=/sys/devices/system/cpu/cpufreq/lulzactive
+gov=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`
+
+#Thanks Droidphile@xda
+
+# interactive, ondemand, conservative, pegasusq, smartassV2, Lionheart, Lulzactive
+# tweak akan berjalan apabila stringnya sesuai
+
+	if [ \$gov="interactive" ];then
+	busybox sleep 0.5
+	if [ -e \$int ];then
+		busybox echo "90" > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+		busybox echo "1200000" > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+		busybox echo "20000" > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+		busybox echo "30000" > /sys/devices/system/cpu/cpufreq/interactive/timer_rate
+	else
+    busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox echo ""
+		busybox echo "Kembali..."
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+
+	elif [ \$gov="ondemand" ];then
+	busybox sleep 0.5
+	if [ -e \$ond ];then
+		busybox echo "85" /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+		busybox echo "100000" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+		busybox echo "1" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+		busybox echo "5" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
+		busybox echo "30" > /sys/devices/system/cpu/cpufreq/ondemand/freq_step
+	else
+     busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox echo ""
+		busybox echo "Kembali..."
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+
+	elif [ \$gov="conservative" ];then
+	busybox sleep 0.5
+	if [ -e \$con ];then
+		busybox echo "95" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
+		busybox echo "120000" > /sys/devices/system/cpu/cpufreq/conservative/sampling_rate
+		busybox echo "1" > /sys/devices/system/cpu/cpufreq/conservative/sampling_down_factor
+		busybox echo "40" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold
+		busybox echo "10" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
+	else
+     busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox echo ""
+		busybox echo "Kembali..."
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+
+	elif [ \$gov="pegasusq" ];then
+	busybox sleep 0.5
+	if [ -e \$pgq ];then
+		busybox echo "90" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
+		busybox echo "80" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold_at_min_freq
+		busybox echo "60000" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_rate
+		busybox echo "1" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_down_factor
+		busybox echo "5" > /sys/devices/system/cpu/cpufreq/pegasusq/down_differential
+		busybox echo "20" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+		busybox echo "300000" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_for_responsiveness
+		busybox echo "15" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
+		busybox echo "15" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_down_rate
+		busybox echo "0" > /sys/devices/system/cpu/cpufreq/pegasusq/ignore_nice_load
+		busybox echo "1" > /sys/devices/system/cpu/cpufreq/pegasusq/io_is_busy
+		busybox echo "0" > /sys/devices/system/cpu/cpufreq/pegasusq/max_cpu_lock
+		busybox echo "0" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_lock
+	else
+     busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox echo ""
+		busybox echo "Kembali..."
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+	elif [ \$gov="smartassV2" ];then
+	busybox sleep 0.5
+	if [ -e \$sass ];then
+		busybox echo "500000" > /sys/devices/system/cpu/cpufreq/smartassV2/awake_ideal_freq
+		busybox echo "200000" > /sys/devices/system/cpu/cpufreq/smartassV2/sleep_ideal_freq
+		busybox echo "800000" > /sys/devices/system/cpu/cpufreq/smartassV2/sleep_wakeup_freq
+		busybox echo "85" > /sys/devices/system/cpu/cpufreq/smartassV2/max_cpu_load
+		busybox echo "70" > /sys/devices/system/cpu/cpufreq/smartassV2/min_cpu_load
+		busybox echo "200000" > /sys/devices/system/cpu/cpufreq/smartassV2/ramp_up_step
+		busybox echo "200000" > /sys/devices/system/cpu/cpufreq/smartassV2/ramp_down_step
+		busybox echo "48000" > /sys/devices/system/cpu/cpufreq/smartassV2/up_rate_us
+		busybox echo "49000" > /sys/devices/system/cpu/cpufreq/smartassV2/down_rate_us
+	else
+     busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox echo ""
+		busybox echo "Kembali..."
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+	elif [ \$gov="lionheart" ];then
+	busybox sleep 0.5
+	if [ -e \$lion ];then
+		busybox echo "60" /sys/devices/system/cpu/cpufreq/lionheart/up_threshold
+		busybox echo "20000" > /sys/devices/system/cpu/cpufreq/lionheart/sampling_rate
+		busybox echo "5" > /sys/devices/system/cpu/cpufreq/lionheart/freq_step
+	else
+     busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox echo ""
+		busybox echo "Kembali..."
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+	elif [ \$gov="lulzactive" ];then
+	busybox sleep 0.5
+	if [ -e \$lul ];then
+		busybox echo "4" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_up_step
+		busybox echo "1" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_down_step
+		busybox echo "10000" > /sys/devices/system/cpu/cpufreq/lulzactive/up_sample_time
+		busybox echo "40000" > /sys/devices/system/cpu/cpufreq/lulzactive/down_sample_time
+		busybox echo "5" > /sys/devices/system/cpu/cpufreq/lulzactive/screen_off_min_step
+	else
+     busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox echo ""
+		busybox echo "Kembali..."
+		busybox sleep 2
+		busybox clear
+     exit 0
+     sh /system/bin/11ngz
+	fi
+	fi
+		busybox clear
+		busybox echo "Proses Governor Tweak selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M") Pemasangan Governor Tweak berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+governoro
+		busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+		busybox sleep 2
+		busybox clear 
+		sh /system/bin/11ngz
+		fi
+		fi
+
+		if [ $cpu -eq 4 ];then
+		busybox clear
+		sh /system/bin/11ngz
+		fi
+;;
+
+3)
+busybox clear
+		busybox echo -e $garis1;
+		busybox echo -e "\e[1;32mKERNEL TUNER\e[00;37;40m"
+		busybox echo -e $garis1;
+		busybox echo ""
+		busybox echo -e "1. Kernel Optimizer        || $kernel"
+		busybox echo -e $garis2
+		busybox echo -e "2. Disable Kernel Panic    || $kp"
+		busybox echo -e $garis2
+		busybox echo -e "3. Multicore Power Savings || $mps"
+		busybox echo -e $garis2
+		busybox echo -e "4. Kernel Samepage Merge   || $ksm"
+		busybox echo -e $garis2
+		busybox echo -e "5. Media Server Killer     || $msk"
+		busybox echo -e $garis2
+		busybox echo "6. Kembali"
+		busybox echo -e $garis2
+		busybox echo -n "Pilih menu (1-6) : "	
+		read knl
+		
+		if [ $knl -eq 1 ];then 
+		if [ -e $path/00NGZkernel ];then
+		busybox clear
+		busybox echo "Menonaktifkan Tweak..."
+		busybox sleep 1
+		busybox rm -rf $path/00NGZkernel
+		busybox echo ""
+		busybox echo "Proses selesai, kembali..."
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/11ngz
+		else
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+busybox touch $path/00NGZkernel
+busybox chmod 755 $path/00NGZkernel
+busybox cat > $path/00NGZkernel << kernelo
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+#mengoptimasi kernel
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/kernel.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+
+############CALCULATE#############
+mem=\$((`awk '/MemTotal/{print \$2}' /proc/meminfo`))
+max=\$((\$mem*75/100));
+all=\$((\$max*80/100));
+filemax=\$((\$mem*(4096/1024)/10))
+############CALCULATE#############
+
+	if [ -e /proc/sys/kernel/shmmax ]; then 
+       	busybox echo "\$max" > /proc/sys/kernel/shmmax
+fi
+
+	if [ -e /proc/sys/kernel/shmall ]; then 
+      	busybox echo "\$all" > /proc/sys/kernel/shmall
+fi
+
+	if [ -e /proc/sys/fs/file-max ];then
+		busybox echo "\$filemax" > /proc/sys/fs/file-max 
+fi 
+
+	if [ -e /proc/sys/kernel/shmmni ]; then
+      	busybox echo "4096" > /proc/sys/kernel/shmmni
+fi
+
+if [ -e /proc/sys/kernel/sem ]; then 
+        busybox echo "350 32000 32 128" > /proc/sys/kernel/sem 
+fi
+
+	if [ -e /proc/sys/fs/lease-break-time ];then
+		busybox echo "10" > /proc/sys/fs/lease-break-time;
+fi
+
+#Fast Charger if support
+
+if [ -e /sys/kernel/fast_charge/force_fast_charge ];then
+		busybox echo "1" > /sys/kernel/fast_charge/force_fast_charge
+fi
+
+#CFS-CONTROL
+
+if [ -e /proc/sys/kernel/sched_latency_ns ];then
+busybox echo "24000000" > /proc/sys/kernel/sched_latency_ns
+fi
+
+
+if [ -e /proc/sys/kernel/sched_wakeup_granularity_ns ];then
+busybox echo "20000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
+fi
+
+		busybox clear
+		busybox echo "Proses Kernel Tweak selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M" ) Pemasangan Kernel Tweak berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+kernelo
+		busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+		busybox sleep 2
+		busybox clear 	
+		sh /system/bin/11ngz
+		fi
+		fi
+
+		if [ $knl -eq 2 ];then
+		if [ -e $path/00NGZkernel_panic ];then
+		busybox clear
+		busybox echo "Menonaktifkan Tweak..."
+		busybox sleep 1
+		busybox rm -rf $path/00NGZkernel_panic
+		busybox echo ""
+		busybox echo "Proses selesai, kembali..."
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/11ngz
+		else
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+busybox touch $path/00NGZkernel_panic
+busybox chmod 755 $path/00NGZkernel_panic
+busybox cat > $path/00NGZkernel_panic << kernelpanic
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/dkp.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+busybox clear
+	if [ -e /proc/sys/kernel/panic_on_oops ];then
+		busybox echo "0" > /proc/sys/kernel/panic_on_oops
+		busybox sleep 0.5
+fi
+
+  if [ -e /proc/sys/vm/panic_on_oom ];then
+     busybox chmod 644 /proc/sys/vm/panic_on_oom 2>/dev/null
+		busybox echo "0" > /proc/sys/vm/panic_on_oom
+		busybox sleep 0.5
+fi
+
+	if [ -e /proc/sys/kernel/panic ];then
+		busybox echo "0" > /proc/sys/kernel/panic
+		busybox sleep 0.5
+fi
+
+	if [ -e /proc/sys/kernel/hung_task_timeout_secs ];then
+		busybox echo "0" > /proc/sys/kernel/hung_task_timeout_secs
+		busybox sleep 0.5
+fi
+
+		busybox clear
+		busybox echo "Proses Disable Kernel Panic selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M" ) Pemasangan Disable Kernel Panic Berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+kernelpanic
+		busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+		busybox sleep 2
+		busybox clear 	
+		sh /system/bin/11ngz
+		fi
+		fi
+
+		if [ $knl -eq 3 ];then
+		if [ -e $path/00NGZmps ];then
+		busybox clear
+		busybox echo "Menonaktifkan Tweak..."
+		busybox sleep 1
+		busybox rm -rf $path/00NGZmps 
+		busybox echo ""
+		busybox echo "Proses selesai, kembali..."	
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/11ngz
+		else
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+busybox touch $path/00NGZmps
+busybox chmod 755 $path/00NGZmps
+busybox cat > $path/00NGZmps << multicoreps
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/mps.log
+busybox rm -f \$ngz
+busybox touch \$ngz
+	if [ -e /sys/devices/system/cpu/sched_mc_power_savings ]; then 
+		busybox echo "2" > /sys/devices/system/cpu/sched_mc_power_savings
+fi
+		busybox clear
+		busybox echo "Proses Multicore Powersave selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M" ) Pemasangan Multicore Powersave berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+multicoreps
+		busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+		busybox sleep 2
+		busybox clear 	
+		sh /system/bin/11ngz	
+		fi
+		fi
+	
+		if [ $knl -eq 4 ];then
+		if [ -e $path/00NGZksm ];then
+		busybox clear
+		busybox echo "Menonaktifkan Tweak..."
+		busybox sleep 1
+		busybox rm -rf $path/00NGZksm
+		busybox echo ""
+		busybox echo "Proses selesai, kembali..."	
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/11ngz
+		else	
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi	
+busybox touch $path/00NGZksm
+busybox chmod 755 $path/00NGZksm
+busybox cat > $path/00NGZksm << kernelsm
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/ksm.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+busybox clear
+	if [ -e /sys/kernel/mm/ksm/run ];then
+		busybox echo "1" > /sys/kernel/mm/ksm/run
+		busybox sleep 0.5
+fi
+
+if [ -e /sys/kernel/mm/ksm/sleep_millisecs ];then
+		busybox echo "500" > /sys/kernel/mm/ksm/sleep_millisecs
+		busybox sleep 0.5
+fi
+
+if [ -e /sys/kernel/mm/ksm/pages_to_scan ];then
+		busybox echo "50" > /sys/kernel/mm/ksm/pages_to_scan
+		busybox sleep 0.5
+fi
+
+		busybox clear
+		busybox echo "Proses Kernel Sampage Merge selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M" ) Pemasangan Kernel Sampage Merge Berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+kernelsm
+		busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/11ngz
+		fi
+		fi		
+		if [ $knl -eq 5 ];then
+		#!/system/bin/sh
+		mount -o remount,rw /
+		busybox mount -o remount,rw /
+		ngz=/system/etc/NGZ/ngzlog/msk.log 
+		busybox rm -f $ngz
+		busybox touch $ngz
+		busybox clear
+		busybox echo "Memproses Mediaserver Killer"
+		busybox sleep 1
+		busybox echo ""
+		busybox pgrep android.process.media
+		busybox killall -9 android.process.media
+		busybox pgrep mediaserver
+		busybox killall -9 mediaserver
+		busybox echo "" | tee -a \$ngz
+		busybox echo "$(date +"%d-%Y %H:%M") Proses Mediaserver Killer selesai" | tee -a $ngz
+		busybox sleep 3
+		busybox echo ""
+		busybox echo -n "Aktifkan Saat Reboot ? (yes/no) : "
+		read mca
+if [ $mca = "yes" ];then
+   if [ -e $path/00NGZmedia ];then
+   busybox rm -f $path/00NGZmedia
+   fi
+	busybox cp /system/etc/NGZ/00NGZmedia /system/etc/init.d
+   busybox chmod 755 /system/etc/init.d/00NGZmedia
+   busybox echo ""
+ 		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+   busybox sleep 2
+   sh /system/bin/11ngz
+else
+   if [ -e $path/00NGZmedia ];then
+   busybox rm -f $path/00NGZmedia
+   fi
+   busybox echo ""
+   busybox echo "Proses tidak di lanjutkan, kembali..."
+   busybox sleep 2
+   busybox clear
+   sh /system/bin/11ngz
+fi
+		fi
+
+		if [ $knl -eq 6 ];then
+		busybox clear
+		sh /system/bin/11ngz
+		fi;;
+4)
+     busybox clear
+		busybox echo -e $garis1;
+		busybox echo -e "\e[1;32mRAM TUNER\e[00;37;40m"
+		busybox echo -e $garis1;
+		busybox echo ""
+		busybox echo -e "1. Mode Agresive           || $lmkm"
+		busybox echo -e $garis2
+		busybox echo -e "2. Mode Multitasking       || $lmkb"
+		busybox echo -e $garis2
+		busybox echo -e "3. Mode Normal             || $lmkp"
+		busybox echo -e $garis2
+		busybox echo -e "4. Ram Manager [ $lmkt ]"
+		busybox echo -e $garis2
+		busybox echo "5. Kembali"
+		busybox echo -e $garis2
+		busybox echo -n "Pilih menu (1-5) : "
+		read lmkt
+		# LMK MULTITASKING
+		if [ $lmkt -eq 1 ];then
+		if [ -e $path/00NGZlmkm ];then
+		busybox clear
+		busybox echo "Menonaktifkan Tweak..."
+		busybox echo ""
+		busybox rm -rf $path/00NGZlmkm
+		busybox echo "Proses selesai, kembali..."
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/11ngz
+		else		
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+
+		if [ -e $path/00NGZlmkt ];then
+		busybox rm -rf $path/00NGZlmkt
+		fi
+		if [ -e $path/00NGZlmkb ];then
+		busybox rm -rf $path/00NGZlmkb
+		fi
+		if [ -e $path/00NGZlmkp ];then
+		busybox rm -rf $path/00NGZlmkp
+		fi		
+busybox touch $path/00NGZlmkm
+busybox chmod 755 $path/00NGZlmkm
+busybox cat > $path/00NGZlmkm << lmkbat
+#!/system/bin/sh
+#=lmkbat=
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/ramop.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+
+#alokasi cache
+
+	if [ -e /proc/sys/vm/vfs_cache_pressure ]; then
+     busybox chmod 644 /proc/sys/vm/vfs_cache_pressure 2>/dev/null 
+		busybox echo "10" > /proc/sys/vm/vfs_cache_pressure
+fi
+
+#minfree lebih teroptimasi (JANGAN DI UBAH) - inspired by l speed (paget96) and was modified by torment
+
+main1=\$((`awk '/MemTotal/{print \$2}' /proc/meminfo`))
+
+	lmk7=\$((8*1024/4));
+	lmk8=\$((12*1024/4));
+	lmk9=\$((25*1024/4));
+	lmk10=\$((30*1024/4));
+	lmk11=\$((35*1024/4));
+	lmk12=\$((40*1024/4));
+	lmk13=\$((12*1024/4));
+	lmk14=\$((18*1024/4));
+	lmk15=\$((25*1024/4));
+	lmk16=\$((32*1024/4));
+	lmk17=\$((40*1024/4));
+	lmk18=\$((45*1024/4));
+	lmk19=\$((18*1024/4));
+	lmk20=\$((24*1024/4));
+	lmk21=\$((25*1024/4));
+	lmk22=\$((40*1024/4));
+	lmk23=\$((56*1024/4));
+	lmk24=\$((64*1024/4));
+
+if [ "\$main1" -lt 1048576 ]; then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "\$lmk7,\$lmk8,\$lmk9,\$lmk10,\$lmk11,\$lmk12" >/sys/module/lowmemorykiller/parameters/minfree
+elif [ "\$main1" -lt 2097152 ]; then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "\$lmk13,\$lmk14,\$lmk15,\$lmk16,\$lmk17,\$lmk18" > /sys/module/lowmemorykiller/parameters/minfree
+else 
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "\$lmk19,\$lmk20,\$lmk21,\$lmk22,\$lmk23,\$lmk24" > /sys/module/lowmemorykiller/parameters/minfree
+fi
+
+if [ -e /sys/module/lowmemorykiller/parameters/cost ];then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/cost
+	busybox echo "16" > /sys/module/lowmemorykiller/parameters/cost
+fi
+
+
+		busybox clear
+		busybox echo "Proses Agresive selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M" ) Pemasangan Agresive berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+lmkbat
+		busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+		busybox sleep 2
+		busybox clear 
+		sh /system/bin/11ngz	
+		fi
+		fi
+		
+		# LMK SEIMBANG
+		if [ $lmkt -eq 2 ];then
+		if [ -e $path/00NGZlmkb ];then
+		busybox clear
+		busybox echo "Menonaktifkan Tweak..."
+		busybox echo ""
+		busybox rm -rf $path/00NGZlmkb
+		busybox echo "Proses selesai, kembali..."
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/11ngz
+		else	
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+
+		if [ -e $path/00NGZlmkt ];then
+		busybox rm -rf $path/00NGZlmkt
+		fi
+		if [ -e $path/00NGZlmkm ];then
+		busybox rm -rf $path/00NGZlmkm
+		fi
+		if [ -e $path/00NGZlmkp ];then
+		busybox rm -rf $path/00NGZlmkp
+		fi	
+busybox touch $path/00NGZlmkb
+busybox chmod 755 $path/00NGZlmkb
+busybox cat > $path/00NGZlmkb << lmkse
+#!/system/bin/sh
+#=lmkse=
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/ramop.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+
+#alokasi cache
+
+	if [ -e /proc/sys/vm/vfs_cache_pressure ]; then
+     busybox chmod 644 /proc/sys/vm/vfs_cache_pressure 2>/dev/null 
+		busybox echo "50" > /proc/sys/vm/vfs_cache_pressure
+fi
+
+#minfree lebih teroptimasi (JANGAN DI UBAH) - inspired by l speed (paget96) and was modified by torment
+
+main1=\$((`awk '/MemTotal/{print \$2}' /proc/meminfo`))
+
+	lmk7=\$((8*1024/4));
+	lmk8=\$((12*1024/4));
+	lmk9=\$((25*1024/4));
+	lmk10=\$((32*1024/4));
+	lmk11=\$((48*1024/4));
+	lmk12=\$((72*1024/4));
+	lmk13=\$((8*1024/4));
+	lmk14=\$((12*1024/4));
+	lmk15=\$((25*1024/4));
+	lmk16=\$((48*1024/4));
+	lmk17=\$((64*1024/4));
+	lmk18=\$((72*1024/4));
+	lmk19=\$((8*1024/4));
+	lmk20=\$((25*1024/4));
+	lmk21=\$((25*1024/4));
+	lmk22=\$((56*1024/4));
+	lmk23=\$((72*1024/4));
+	lmk24=\$((96*1024/4));
+
+if [ "\$main1" -lt 1048576 ]; then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "\$lmk7,\$lmk8,\$lmk9,\$lmk10,\$lmk11,\$lmk12" >/sys/module/lowmemorykiller/parameters/minfree
+elif [ "\$main1" -lt 2097152 ]; then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "\$lmk13,\$lmk14,\$lmk15,\$lmk16,\$lmk17,\$lmk18" > /sys/module/lowmemorykiller/parameters/minfree
+else 
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "\$lmk19,\$lmk20,\$lmk21,\$lmk22,\$lmk23,\$lmk24" > /sys/module/lowmemorykiller/parameters/minfree
+fi
+
+if [ -e /sys/module/lowmemorykiller/parameters/cost ];then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/cost
+	busybox echo "32" > /sys/module/lowmemorykiller/parameters/cost
+fi
+		busybox clear
+		busybox echo "Proses Multitasking selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M" ) Pemasangan Multitasking berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+lmkse
+		busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+		busybox sleep 2
+		busybox clear 	
+		sh /system/bin/11ngz	
+		fi
+		fi
+		
+		# LMK PERFORMA
+		if [ $lmkt -eq 3 ];then
+		if [ -e $path/00NGZlmkp ];then
+		busybox clear
+		busybox echo "Menonaktifkan Tweak..."
+		busybox echo ""
+		busybox rm -rf $path/00NGZlmkp
+		busybox echo "Proses selesai, kembali..."
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/11ngz
+		else		
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+
+		if [ -e $path/00NGZlmkt ];then
+		busybox rm -rf $path/00NGZlmkt
+		fi
+		if [ -e $path/00NGZlmkb ];then
+		busybox rm -rf $path/00NGZlmkb
+		fi
+		if [ -e $path/00NGZlmkm ];then
+		busybox rm -rf $path/00NGZlmkm
+		fi	
+busybox touch $path/00NGZlmkp
+busybox chmod 755 $path/00NGZlmkp
+busybox cat > $path/00NGZlmkp << lmkper
+#!/system/bin/sh
+#=lmkper=
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/ramop.log 
+busybox rm -f \$ngz
+busybox touch \$ngz
+
+#alokasi cache
+
+	if [ -e /proc/sys/vm/vfs_cache_pressure ]; then
+     busybox chmod 644 /proc/sys/vm/vfs_cache_pressure 2>/dev/null 
+		busybox echo "70" > /proc/sys/vm/vfs_cache_pressure
+fi
+
+main1=\$((`awk '/MemTotal/{print \$2}' /proc/meminfo`))
+
+	lmk7=\$((18*1024/4));
+	lmk8=\$((24*1024/4));
+	lmk9=\$((32*1024/4));
+	lmk10=\$((48*1024/4));
+	lmk11=\$((64*1024/4));
+	lmk12=\$((72*1024/4));
+	lmk13=\$((24*1024/4));
+	lmk14=\$((25*1024/4));
+	lmk15=\$((28*1024/4));
+	lmk16=\$((48*1024/4));
+	lmk17=\$((64*1024/4));
+	lmk18=\$((72*1024/4));
+	lmk19=\$((25*1024/4));
+	lmk20=\$((28*1024/4));
+	lmk21=\$((32*1024/4));
+	lmk22=\$((64*1024/4));
+	lmk23=\$((72*1024/4));
+	lmk24=\$((96*1024/4));
+
+if [ "\$main1" -lt 1048576 ]; then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "\$lmk7,\$lmk8,\$lmk9,\$lmk10,\$lmk11,\$lmk12" >/sys/module/lowmemorykiller/parameters/minfree
+elif [ "\$main1" -lt 2097152 ]; then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "\$lmk13,\$lmk14,\$lmk15,\$lmk16,\$lmk17,\$lmk18" > /sys/module/lowmemorykiller/parameters/minfree
+else 
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "\$lmk19,\$lmk20,\$lmk21,\$lmk22,\$lmk23,\$lmk24" > /sys/module/lowmemorykiller/parameters/minfree
+fi
+
+if [ -e /sys/module/lowmemorykiller/parameters/cost ];then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/cost
+	busybox echo "64" > /sys/module/lowmemorykiller/parameters/cost
+fi
+
+		busybox clear
+		busybox echo "Proses Normal selesai" | tee -a \$ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a \$ngz
+		busybox echo "\$(date +"%d-%Y %H:%M" ) Pemasangan Normal berhasil" | tee -a \$ngz
+		busybox sleep 2
+		busybox clear
+lmkper
+		busybox clear
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+		busybox sleep 2
+		busybox clear 		
+		sh /system/bin/11ngz
+		fi
+		fi
+
+     if [ $lmkt -eq 4 ];then
+		busybox clear
+		sh /system/etc/NGZ/00NGZramz
+		else
+		sh /system/bin/11ngz
+		fi
+
+
+		if [ $lmkt -eq 5 ];then
+		busybox clear
+		sh /system/bin/11ngz
+		fi
+;;
+
+5)
+     busybox clear
+     busybox chmod 755 /system/etc/NGZ/00NGZgpdfix
+     sh /system/etc/NGZ/00NGZgpdfix
+     busybox echo ""
+     busybox echo -e $garis1
+     busybox echo -e "Value : $gps"
+     busybox echo -e $garis1
+     busybox echo ""
+     busybox echo -n "Aktifkan saat reboot ? (yes/no) : "
+     read menu
+
+     if [ $menu = yes ];then
+
+if [ -e /system/etc/init.d/00NGZgpdfix ];then
+busybox rm -f /system/etc/init.d/00NGZgpdfix
+fi
+     busybox cp /system/etc/NGZ/00NGZgpdfix /system/etc/init.d
+     busybox chmod 755 /system/etc/init.d/00NGZgpdfix
+     busybox echo ""
+     busybox echo "Proses selesai, kembali..."
+     busybox sleep 2
+     busybox clear
+     sh /system/bin/11ngz 
+
+elif [ $menu = no ];then
+
+if [ -e /system/etc/init.d/00NGZgpdfix ];then
+busybox rm -f /system/etc/init.d/00NGZgpdfix
+fi
+     busybox echo ""
+     busybox echo "Proses selesai, kembali..."
+     busybox sleep 2
+     busybox clear
+     sh /system/bin/11ngz 
+else
+     busybox echo "Input yang anda masukan salah, harap ulangi lagi"
+fi
+
+     busybox echo "Proses selesai, kembali..."
+     busybox sleep 2
+     busybox clear
+     sh /system/bin/11ngz 
+;;
+
+6)
+busybox clear
+heaplog=/system/etc/NGZ/ngzlog/heap.log
+rm -f $heaplog
+touch $heaplog
+busybox echo -e $garis1;
+busybox echo -e "Value anda : \e[0;35m `getprop dalvik.vm.heapsize` \e[00;37;40m"
+busybox echo -e $garis1;
+busybox echo "" 
+busybox echo -e "1. Normal = \e[0;36m512\e[00;37;40m"
+busybox echo -e $garis2;
+busybox echo -e "2. Smooth = \e[0;36m384\e[00;37;40m"
+busybox echo -e $garis2;
+busybox echo -e "3. Lazy   = \e[0;36m256\e[00;37;40m"
+busybox echo -e $garis2;
+busybox echo -e "4. Gacor  = \e[0;36m48\e[00;37;40m"
+busybox echo -e $garis2;
+busybox echo -e "5. Gokil  = \e[0;36m32\e[00;37;40m"
+busybox echo -e $garis2;
+busybox echo -e "6. Sadis  = \e[0;36m24\e[00;37;40m"
+busybox echo -e $garis2;
+busybox echo "7. Kembali"
+busybox echo -e $garis2;
+busybox echo -n "Masukan pilihan (1-7) : "
+read menu
+
+if [ $menu -eq 1 ];then
+#Normal
+busybox clear
+setprop dalvik.vm.heapsize 512m
+heap=`getprop dalvik.vm.heapsize | cut -dm -f1`;
+tar=`getprop dalvik.vm.heaptargetutilization | cut -dm -f1`;
+kal=`awk -v h=$heap -v t=$tar 'BEGIN { print (t / 3) * h }'`;
+setprop dalvik.vm.heapgrowthlimit $kal'm';
+busybox echo "$(date +"%d-%Y %H:%M") Proses Heap Normal berhasil" | tee -a $heaplog
+busybox echo ""
+busybox echo "Value anda : `getprop dalvik.vm.heapgrowthlimit` dan `getprop dalvik.vm.heapsize`" | tee -a $heaplog
+busybox sleep 2
+busybox clear
+sh /system/bin/11ngz
+elif [ $menu -eq 2 ];then
+# Smooth
+busybox clear
+setprop dalvik.vm.heapsize 384m
+heap=`getprop dalvik.vm.heapsize | cut -dm -f1`;
+tar=`getprop dalvik.vm.heaptargetutilization | cut -dm -f1`;
+kal=`awk -v h=$heap -v t=$tar 'BEGIN { print (t / 3) * h }'`;
+setprop dalvik.vm.heapgrowthlimit $kal'm';
+
+busybox echo "$(date +"%d-%Y %H:%M") Proses Heap Smooth berhasil" | tee -a $heaplog
+busybox echo ""
+busybox echo "Value anda : `getprop dalvik.vm.heapgrowthlimit` dan `getprop dalvik.vm.heapsize`" | tee -a $heaplog
+busybox sleep 2
+busybox clear
+sh /system/bin/11ngz
+elif [ $menu -eq 3 ];then
+#Lazy
+busybox clear
+setprop dalvik.vm.heapsize 256m
+heap=`getprop dalvik.vm.heapsize | cut -dm -f1`;
+tar=`getprop dalvik.vm.heaptargetutilization | cut -dm -f1`;
+kal=`awk -v h=$heap -v t=$tar 'BEGIN { print (t / 3) * h }'`;
+setprop dalvik.vm.heapgrowthlimit $kal'm';
+
+busybox echo "$(date +"%d-%Y %H:%M") Proses Heap Lazy berhasil" | tee -a $heaplog
+busybox echo ""
+busybox echo "Value anda : `getprop dalvik.vm.heapgrowthlimit` dan `getprop dalvik.vm.heapsize`" | tee -a $heaplog
+busybox sleep 2
+busybox clear
+sh /system/bin/11ngz
+elif [ $menu -eq 4 ];then
+#hard
+busybox clear
+setprop dalvik.vm.heapsize 48m
+heap=`getprop dalvik.vm.heapsize | cut -dm -f1`;
+tar=`getprop dalvik.vm.heaptargetutilization | cut -dm -f1`;
+kal=`awk -v h=$heap -v t=$tar 'BEGIN { print (t / 3) * h }'`;
+setprop dalvik.vm.heapgrowthlimit $kal'm';
+
+busybox echo "$(date +"%d-%Y %H:%M") Proses Heap Gacor berhasil" | tee -a $heaplog
+busybox echo ""
+busybox echo "Value anda : `getprop dalvik.vm.heapgrowthlimit` dan `getprop dalvik.vm.heapsize`" | tee -a $heaplog
+busybox sleep 2
+busybox clear
+sh /system/bin/11ngz
+elif [ $menu -eq 5 ];then
+#crazy
+busybox clear
+setprop dalvik.vm.heapsize 32m
+heap=`getprop dalvik.vm.heapsize | cut -dm -f1`;
+tar=`getprop dalvik.vm.heaptargetutilization | cut -dm -f1`;
+kal=`awk -v h=$heap -v t=$tar 'BEGIN { print (t / 3) * h }'`;
+setprop dalvik.vm.heapgrowthlimit $kal'm';
+
+busybox echo "$(date +"%d-%Y %H:%M") Proses Heap Gokil berhasil" | tee -a $heaplog
+busybox echo ""
+busybox echo "Value anda : `getprop dalvik.vm.heapgrowthlimit` dan `getprop dalvik.vm.heapsize`" | tee -a $heaplog
+busybox sleep 2
+busybox clear
+sh /system/bin/11ngz
+elif [ $menu -eq 6 ];then
+#insane
+busybox clear
+setprop dalvik.vm.heapsize 24m
+heap=`getprop dalvik.vm.heapsize | cut -dm -f1`;
+tar=`getprop dalvik.vm.heaptargetutilization | cut -dm -f1`;
+kal=`awk -v h=$heap -v t=$tar 'BEGIN { print (t / 3) * h }'`;
+setprop dalvik.vm.heapgrowthlimit $kal'm';
+
+busybox echo "$(date +"%d-%Y %H:%M") Proses Heap Sadis berhasil" | tee -a $heaplog
+busybox echo ""
+busybox echo "Value anda : `getprop dalvik.vm.heapgrowthlimit` dan `getprop dalvik.vm.heapsize`" | tee -a $heaplog
+busybox sleep 2
+busybox clear
+sh /system/bin/11ngz
+elif [ $menu -eq 7 ];then
+busybox sleep 1
+busybox clear
+sh /system/bin/11ngz
+else
+busybox clear
+busybox echo "Maaf, ulangi lagi"
+busybox sleep 1.5
+sh /system/bin/11ngz
+fi;;
+
+7)
+if [ -e /system/bin/mpdecision ];then
+busybox clear
+busybox echo "Mengaktifkan MPDECISION"
+busybox sleep 1.5
+busybox mv /system/bin/mpdecision /system/etc/NGZ
+busybox echo ""
+busybox echo "Proses selesai, kembali"
+busybox sleep 1.5
+busybox clear
+sh /system/bin/11ngz
+elif [ -e /system/etc/NGZ/mpdecision ];then
+busybox clear
+busybox echo "Menonakifkan MPDECISION"
+busybox sleep 1.5
+busybox mv /system/etc/NGZ/mpdecision /system/bin/
+busybox chmod 755 /system/bin/mpdecision
+busybox echo ""
+busybox echo "Proses selesai, kembali"
+busybox sleep 1.5
+busybox clear
+sh /system/bin/11ngz
+else
+busybox clear
+busybox echo "Maaf, kernel tidak support mpdecision, kembali"
+busybox sleep 2
+busybox clear
+sh /system/bin/11ngz
+fi
+;;
+
+8)
+	sh /system/bin/10ngz
+	exit
+;;
+
+*)
+	busybox clear
+	busybox echo "Inputan salah, ulangi lagi"
+	busybox sleep 2
+	busybox clear
+	sh /system/bin/11ngz
+;;
+esac
+exit 0

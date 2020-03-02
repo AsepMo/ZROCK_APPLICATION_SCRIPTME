@@ -1,0 +1,45 @@
+#!/system/bin/sh
+#=======================================================================#
+#  Copyright (C) 2017 MUHAMMAD IRHAM F All Rights Reserved
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+busybox clear
+busybox echo "Memproses..."
+busybox sync
+busybox echo "3" > /proc/sys/vm/drop_caches;
+dc=/proc/sys/vm/drop_caches
+dc_v=`cat $dc`
+	if [ "$dc_v" -gt 1 ]; then
+	busybox echo "1" > /proc/sys/vm/drop_caches;
+	fi
+busybox echo""
+#proses pembersihan cache
+busybox find /data/data -type d -iname "cache*" -exec busybox rm -fr {}/ ';' -exec echo "Cleared {}" ';'
+busybox rm -f /data/backup/pending/*.tmp
+busybox rm -f /data/tombstones/*.*
+busybox rm -f /data/local/*.apk
+busybox rm -f /data/local/tmp/*.apk
+#proses media server killer
+busybox echo ""
+busybox pgrep android.process.media
+busybox killall -9 android.process.media	
+busybox pgrep mediaserver
+busybox killall -9 mediaserver
+busybox sleep 2
+busybox echo ""
+busybox echo "Proses Boost selesai"
+busybox sleep 5
+busybox clear
+sh /system/bin/10ngz

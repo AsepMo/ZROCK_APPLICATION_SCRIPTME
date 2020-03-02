@@ -20,7 +20,7 @@ public class ListViewAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 16;
+        return 2;
     }
 
 
@@ -41,7 +41,7 @@ public class ListViewAdapter extends BaseAdapter {
 
         ExpandableLayout expandableLayout;
         if(convertView == null) {
-            convertView = mLayoutInflater.inflate(position%2==0?R.layout.item_jinx:R.layout.item_ezreal,parent,false);
+            convertView = mLayoutInflater.inflate(position%2==0?R.layout.item_ezreal:R.layout.item_jinx,parent,false);
             expandableLayout = (ExpandableLayout) convertView.findViewById(R.id.expandable_layout);
             expandableLayout.setExpandWithParentScroll(false);
             convertView.setTag(expandableLayout);

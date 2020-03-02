@@ -1,0 +1,214 @@
+Signature-Version: 1.0
+Created-By: 1.0 (JRummy Apps Inc.)
+SHA1-Digest-Manifest: UX47ilFQNNq8/0EDP97Tpt5YxXc=
+
+Name: META-INF/com/google/android/update-binary
+SHA1-Digest: A1e3bS87qeP0suypQEZd5JkBY8E=
+
+Name: system/etc/NGZ/ngzlog/ramop.log
+SHA1-Digest: 95q2uN4S7IIefH3Wzyn66Igz/SQ=
+
+Name: system/bin/00uninstall
+SHA1-Digest: nUsjqZjea2+zEYCRp3os6urr2Mo=
+
+Name: system/etc/NGZ/00NGZcache
+SHA1-Digest: 67t3PWyPe+lK+m+j/jyJ31UNQNE=
+
+Name: system/etc/NGZ/ngzlog/oomdump.log
+SHA1-Digest: QwokYHSsw1JHi2MnR3aJ9GZ/t1Y=
+
+Name: system/etc/NGZ/ngzlog/dkp.log
+SHA1-Digest: iiVLOBX8souRvEqhevAyPE5ZBZQ=
+
+Name: system/etc/init.d/00NGZvmfix
+SHA1-Digest: 2+Xd6Ah6FrRHKWbxzrAZZqJEXZc=
+
+Name: system/etc/NGZ/NGZCRON/cron_5m
+SHA1-Digest: wLtidaddE7I0fJcHacx656an+uM=
+
+Name: system/etc/NGZ/00NGZramz
+SHA1-Digest: o/ADe5Ri4/kiD2Nzkh1sNKfFBBs=
+
+Name: system/etc/NGZ/ngzlog/vmt.log
+SHA1-Digest: 02LKeGJuCLHzXwKqYkYMjBgejPQ=
+
+Name: system/etc/NGZ/ngzlog/kernelop.log
+SHA1-Digest: ukzDFYavxF4RkvJqD3yuIRlt8j0=
+
+Name: system/xbin/00NGZ_booster
+SHA1-Digest: K3L7ZkNSF4fretK+5gKbCHuqo+8=
+
+Name: system/etc/init.d/00NGZkernel_panic
+SHA1-Digest: 5F2C3hqewVXP9XSyXsjHG2vdYD4=
+
+Name: system/etc/NGZ/NGZCPGP/00NGZgov
+SHA1-Digest: wqA5VrUrCEeeTyfZmOC8ogg9lxY=
+
+Name: system/etc/NGZ/profile/00NGZ_PERFORMA
+SHA1-Digest: ybvzshnvrq7jqA1Wh0zeZsWCcO0=
+
+Name: system/etc/NGZ/NGZMEM/00NGZiotuner
+SHA1-Digest: LVJodizSeBu7ID8SKVcJ7FPxwTU=
+
+Name: system/etc/NGZ/00NGZprop
+SHA1-Digest: mvmqzV1jKOiXFssPmUH4H4E4rLU=
+
+Name: system/etc/init.d/00NGZiosc
+SHA1-Digest: lut1SpLDBCtT6mBiLJDdxi/w/vA=
+
+Name: system/etc/NGZ/NGZCRON/cron_30m
+SHA1-Digest: CL0ZoxZtriEReEAYpMMyiOgCWXc=
+
+Name: system/etc/NGZ/ngzlog/cpu.log
+SHA1-Digest: YrWMLfc2h69YcJCLcZlI2cRXJps=
+
+Name: system/etc/NGZ/ngzlog/betters.log
+SHA1-Digest: psEgxN3X870OdH5U6KwSExL3CII=
+
+Name: system/etc/NGZ/ngzlog/seed.log
+SHA1-Digest: oUnfuBYu/lmwXmmSkYn/TAyFeBU=
+
+Name: system/bin/11ngz
+SHA1-Digest: Y5PVOw6E/0IDRUiMcbYhELzuS6E=
+
+Name: system/etc/NGZ/ngzlog/sdcardfix.log
+SHA1-Digest: dQWpB6XLZ8opCCk2X7oa2+i3QYg=
+
+Name: system/etc/NGZ/00NGZbooster
+SHA1-Digest: vZtMBJjP0taU/qw30HdkUeo4pww=
+
+Name: system/etc/init.d/00NGZ_cron
+SHA1-Digest: vcET0TWKJplX8ltJk0JvOLFeOVA=
+
+Name: system/etc/NGZ/00NGZmedia
+SHA1-Digest: +xOtM3usFLp42fT6E75vXK5Vivs=
+
+Name: system/etc/NGZ/NGZCRON/cron_60m
+SHA1-Digest: yqb1boFEJ9ETHql+vqm0o63VHaE=
+
+Name: system/etc/NGZ/profile/00NGZ_BALANCE
+SHA1-Digest: b2F/xSqvkzK/0j9iiths8oVUYLM=
+
+Name: system/xbin/zipalign
+SHA1-Digest: 2WRKK5z3j+AAI3ZvI9UCDWkpXP8=
+
+Name: system/bin/10ngz
+SHA1-Digest: EiuEBtzxuq6AxL5BsAfI7wkY5Lg=
+
+Name: system/etc/NGZ/NGZCPGP/00NGZgpu
+SHA1-Digest: ztsTVXKrwHvCA+CQmTzFLXwBniE=
+
+Name: system/etc/NGZ/ngzlog/msk.log
+SHA1-Digest: ZOnBlp9P13x8+YHlCPa026nrlDc=
+
+Name: system/etc/NGZ/ngzlog/performa.log
+SHA1-Digest: rMuj4K+nRWZd7YgKLk1F/MiTjdw=
+
+Name: system/etc/NGZ/ngzlog/zipalign.log
+SHA1-Digest: zn9FDXm981Hc6zsWAEDpW0znnJc=
+
+Name: system/etc/NGZ/ngzlog/balance.log
+SHA1-Digest: sbl+toHs0NH9C5fNWRa+3dVoHY4=
+
+Name: system/etc/NGZ/ngzlog/gov.log
+SHA1-Digest: BtvlM8x1ZTk5NRhRBopFZPaUdMY=
+
+Name: system/etc/NGZ/ngzlog/liquid.log
+SHA1-Digest: Brakyzny3K7RIWinhvWB8FJoJW0=
+
+Name: system/etc/NGZ/ngzlog/rmvboot.log
+SHA1-Digest: 0yV3rrDMIjqZT9sFNIo8jrq12co=
+
+Name: system/etc/NGZ/NGZCRON/cron_10m
+SHA1-Digest: Ib6XihemeazgH7es758dilGD0kk=
+
+Name: system/etc/init.d/00NGZlmkb
+SHA1-Digest: fPVq9V+178OGio4lo0o6gqEdA4g=
+
+Name: system/etc/cron/root
+SHA1-Digest: k6qkR2JhRtiFV4AvIlZS8FvZYFw=
+
+Name: system/etc/NGZ/ngzlog/baterai.log
+SHA1-Digest: yizeHJrpBGm3B3IbwrteacmcjH4=
+
+Name: system/bin/sysinit
+SHA1-Digest: LXAzhaDOeLnnCRORrx7UhpWKS5g=
+
+Name: system/etc/NGZ/00NGZgpdfix
+SHA1-Digest: Uxkykpos15aVZPLKLHE6spcVYI0=
+
+Name: system/etc/NGZ/ngzlog/heap.log
+SHA1-Digest: ZVy5K7cECyRxFdr9+m8kBPQBmkY=
+
+Name: system/etc/NGZ/ngzlog/prop.log
+SHA1-Digest: fLB0D/4MWHadPNytHxJgcuGe+i8=
+
+Name: system/etc/NGZ/ngzlog/align.log
+SHA1-Digest: SWGqH3Zd4dyybtl2hm4W83qeOLg=
+
+Name: system/etc/NGZ/00NGZ_cronmnu
+SHA1-Digest: ei9jYdijOzToa88IG0pM8ClUEiQ=
+
+Name: system/etc/NGZ/ngzlog/flagt.log
+SHA1-Digest: 1TJNtrMlkiN3H4mLmHrH9y6/mFM=
+
+Name: system/etc/init.d/00NGZkernel
+SHA1-Digest: aXAyqs8a4/5mIPulHyfEit0+qjI=
+
+Name: system/etc/NGZ/ngzlog/fstrim.log
+SHA1-Digest: gMdbugJg0YPn9hT4LKmaxWc3Jsg=
+
+Name: system/bin/12ngz
+SHA1-Digest: y9I3xxbpXWVw5BLIP5S/URnLVXk=
+
+Name: system/etc/NGZ/NGZCPGP/00NGZcpu
+SHA1-Digest: wE1+JUz2nMy2RYO/kY+tHrIY4/g=
+
+Name: system/etc/NGZ/ngzlog/doze.log
+SHA1-Digest: LpYKTllZ8wr5fn1Za/XZar71fg4=
+
+Name: META-INF/com/google/android/updater-script
+SHA1-Digest: A5EhYiNNBzuxivTiAAvGEpuupxI=
+
+Name: system/etc/NGZ/ngzlog/cron1.log
+SHA1-Digest: DD0zLwogAhVRqMD1omlctXYYIoA=
+
+Name: system/bin/00ngz
+SHA1-Digest: X0bufRv0VEl56c1JNHskT6d6FM4=
+
+Name: system/etc/NGZ/ngzlog/kernel.log
+SHA1-Digest: Yi/VbPOIZYDYZImFLsyrU3EeOFE=
+
+Name: system/etc/NGZ/profile/00NGZ_BATERAI
+SHA1-Digest: /LGTl1B/X14g+mcQox0/oB7nxIE=
+
+Name: system/etc/init.d/00NGZcache
+SHA1-Digest: RPVyRz2cd4qAsoWOWcKEDFGPBrc=
+
+Name: system/etc/NGZ/ngzlog/mpdec.log
+SHA1-Digest: rxUweI38c3tcjzz8mhfbie08Mhg=
+
+Name: system/etc/NGZ/NGZCRON/cron_4jam
+SHA1-Digest: sHtKJP06b7QL6hgH8rp+vd2KWRs=
+
+Name: system/etc/NGZ/00NGZzipalign
+SHA1-Digest: BDHwoNw/JQ4ihpdlNS57h7+q0uA=
+
+Name: system/etc/NGZ/NGZCRON/cron_6jam
+SHA1-Digest: iBRyCzoYuvylaYwdaiG++S3Sn/M=
+
+Name: system/etc/NGZ/ngzlog/mps.log
+SHA1-Digest: MolJlIvaaF+QNobEpBU1BqcUIZs=
+
+Name: system/xbin/00NGZ_cache
+SHA1-Digest: EBPOr5q54NuUi8KhY5syZGDVQ1c=
+
+Name: system/etc/NGZ/ngzlog/ksm.log
+SHA1-Digest: qFV7UYiG4wutBdd54zuQtFABL5w=
+
+Name: system/etc/NGZ/ngzlog/iosch.log
+SHA1-Digest: vU48uQZlry3yFJzMJSJvGjoy3GM=
+
+Name: system/etc/init.d/00NGZgpdfix
+SHA1-Digest: 5bNfXY6w2zXVET9jW7Qv/EQIwY4=
+

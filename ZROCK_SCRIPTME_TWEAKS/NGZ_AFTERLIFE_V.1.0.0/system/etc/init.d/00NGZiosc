@@ -1,0 +1,63 @@
+#!/system/bin/sh
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+busybox mount -o remount,noatime,nodiratime /dev 2> /dev/null
+busybox mount -o remount,noatime,nodiratime /proc 2> /dev/null
+busybox mount -o remount,noatime,nodiratime /sys 2> /dev/null
+busybox mount -o remount,noatime,nodiratime /system 2> /dev/null
+
+ngz=/system/etc/NGZ/ngzlog/iosch.log 
+busybox rm -f $ngz
+busybox touch $ngz
+busybox clear
+#IO SCHEDULER OPTIMIZER
+BML="ls -d /sys/block/bml*" 2> /dev/null;
+STL="ls -d /sys/block/stl*" 2> /dev/null;
+MMC="ls -d /sys/block/mmc*" 2> /dev/null;
+MTD="ls -d /sys/block/mtd*" 2> /dev/null;
+LOOP="ls -d /sys/block/loop*" 2> /dev/null;
+for j in $BML $STL $MMC $MTD;
+do
+
+	if [ -e $j/queue/rotational ];then
+		busybox echo "0" > $j/queue/rotational
+fi
+
+  if [ -e $j/queue/rq_affinity ];then
+		busybox echo "1" > $j/queue/rq_affinity
+fi
+
+  if [ -e $j/queue/nr_requests ];then
+		busybox echo "512" > $j/queue/nr_requests
+fi
+
+if [ -e $j/queue/nomerges ];then
+		busybox echo "1" > $j/queue/nomerges
+fi
+
+if [ -e $j/queue/read_ahead_kb ];then
+     busybox echo "512" > $j/queue/read_ahead_kb
+fi
+
+if [ -e $j/queue/iostats ];then
+     busybox echo "0" > $j/queue/iostats
+fi
+
+done
+		busybox echo "Proses IO Scheduler Optimizer selesai" | tee -a $ngz
+		busybox sleep 2
+		busybox echo "" | tee -a $ngz
+		busybox echo "$(date +"%d-%Y %H:%M") Pemasangan IO Scheduler Optimizer berhasil" | tee -a $ngz

@@ -1,0 +1,256 @@
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+# Modified Script written by Muhammad Irham <cuman-android.blogspot.co.id>
+#garis
+garis1="\e[0;100m========================================\e[00;37;40m"
+
+garis2="\e[0;90m========================================\e[00;37;40m"
+
+#path
+ngz=/system/etc/NGZ/NGZCRON 2>/dev/null
+path=/system/etc/cron 2>/dev/null
+log=/system/etc/NGZ/ngzlog/cron1.log
+cronm=/system/etc/NGZ/00NGZ_cronmnu 2>/dev/null
+#notif
+
+if [ "`grep =limam= /system/etc/cron/root`" ];then
+	limam="\e[1;32mOn\e[0m"
+else
+	limam="\e[1;31mOff\e[0m"
+fi 2>/dev/null
+
+if [ "`grep =sepuluhm= /system/etc/cron/root`" ];then
+	sepuluhm="\e[1;32mOn\e[0m"
+else
+	sepuluhm="\e[1;31mOff\e[0m"
+fi 2>/dev/null
+
+if [ "`grep =tigam= /system/etc/cron/root`" ];then
+	tigam="\e[1;32mOn\e[0m"
+else
+	tigam="\e[1;31mOff\e[0m"
+fi 2>/dev/null
+
+if [ "`grep =satuj= /system/etc/cron/root`" ];then
+	satuj="\e[1;32mOn\e[0m"
+else
+	satuj="\e[1;31mOff\e[0m"
+fi 2>/dev/null
+
+if [ "`grep =empatj= /system/etc/cron/root`" ];then
+	empatj="\e[1;32mOn\e[0m"
+else
+	empatj="\e[1;31mOff\e[0m"
+fi 2>/dev/null
+
+if [ "`grep =enamj= /system/etc/cron/root`" ];then
+	enamj="\e[1;32mOn\e[0m"
+else
+	enamj="\e[1;31mOff\e[0m"
+fi 2>/dev/null 
+
+#menu
+busybox echo -e $garis1
+busybox echo -e "\e[1;32mULTIMATE BOOSTER\e[00;37;40m"
+busybox echo -e $garis1
+busybox echo ""
+busybox echo -e "1. BOOST setiap 5 Menit         || $limam"
+busybox echo -e $garis2;
+busybox echo -e "2. BOOST setiap 10 Menit        || $sepuluhm"
+busybox echo -e $garis2;
+busybox echo -e "3. BOOST setiap 30 Menit        || $tigam"
+busybox echo -e $garis2;
+busybox echo -e "4. BOOST setiap 60 Menit        || $satuj"
+busybox echo -e $garis2;
+busybox echo -e "5. BOOST setiap 4 Jam           || $empatj"
+busybox echo -e $garis2;
+busybox echo -e "6. BOOST setiap 6 Jam           || $enamj"
+busybox echo -e $garis2;
+busybox echo "7. Kembali ke menu utama"
+busybox echo -e $garis2;
+busybox echo -n "Masukan pilihan anda (1-7) : "
+read mnu
+
+if [ $mnu -eq 1 ];then
+
+if [ "`grep =limam= /system/etc/cron/root`" ];then
+
+busybox rm /system/etc/cron/root 2>/dev/null
+busybox echo "Booster sudah di matikan, kembali..."
+busybox sleep 2
+busybox clear
+
+else
+
+busybox rm -f $log 2>/dev/null
+busybox touch $log
+busybox clear
+busybox echo "Memproses..."
+busybox sleep 2
+busybox cp $ngz/cron_5m $path/root 2>/dev/null
+busybox chmod 755 $path/root
+busybox clear
+busybox echo "Proses selesai"
+busybox echo ""
+busybox echo "Harap segera lakukan Reboot"
+busybox sleep 2
+busybox clear
+busybox sh $cronm
+fi 2>/dev/null
+fi
+
+if [ $mnu -eq 2 ];then
+
+if [ "`grep =sepuluhm= /system/etc/cron/root`" ];then
+
+busybox rm /system/etc/cron/root 2>/dev/null
+busybox echo "Booster sudah di matikan, kembali..."
+busybox sleep 2
+busybox clear
+
+else
+
+busybox rm -f $log 2>/dev/null
+busybox touch $log
+busybox clear
+busybox echo "Memproses..."
+busybox sleep 2
+busybox cp $ngz/cron_10m $path/root 2>/dev/null
+busybox chmod 755 $path/root
+busybox clear
+busybox echo "Proses selesai"
+busybox echo ""
+busybox echo "Harap segera lakukan Reboot"
+busybox sleep 2
+busybox clear
+busybox sh $cronm
+fi 2>/dev/null
+fi
+
+if [ $mnu -eq 3 ];then
+
+if [ "`grep =tigam= /system/etc/cron/root`" ];then
+
+busybox rm /system/etc/cron/root 2>/dev/null
+busybox echo "Booster sudah di matikan, kembali..."
+busybox sleep 2
+busybox clear
+
+else
+
+busybox rm -f $log 2>/dev/null
+busybox touch $log
+busybox clear
+busybox echo "Memproses..."
+busybox sleep 2
+busybox cp $ngz/cron_30m $path/root 2>/dev/null
+busybox chmod 755 $path/root
+busybox clear
+busybox echo "Proses selesai"
+busybox echo ""
+busybox echo "Harap segera lakukan Reboot"
+busybox sleep 2
+busybox clear
+busybox sh $cronm
+fi 2>/dev/null
+fi 
+
+if [ $mnu -eq 4 ];then
+
+if [ "`grep =satuj= /system/etc/cron/root`" ];then
+
+busybox rm /system/etc/cron/root 2>/dev/null
+busybox echo "Booster sudah di matikan, kembali..."
+busybox sleep 2
+busybox clear
+
+else
+
+busybox rm -f $log 2>/dev/null
+busybox touch $log
+busybox clear
+busybox echo "Memproses..."
+busybox sleep 2
+busybox cp $ngz/cron_60m $path/root 2>/dev/null
+busybox chmod 755 $path/root
+busybox clear
+busybox echo "Proses selesai"
+busybox echo ""
+busybox echo "Harap segera lakukan Reboot"
+busybox sleep 2
+busybox clear
+busybox sh $cronm
+fi 2>/dev/null
+fi
+
+if [ $mnu -eq 5 ];then
+
+if [ "`grep =empatj= /system/etc/cron/root`" ];then
+
+busybox rm /system/etc/cron/root 2>/dev/null
+busybox echo "Booster sudah di matikan, kembali..."
+busybox sleep 2
+busybox clear
+
+else
+
+busybox rm -f $log 2>/dev/null
+busybox touch $log
+busybox clear
+busybox echo "Memproses..."
+busybox sleep 2
+busybox cp $ngz/cron_4jam $path/root 2>/dev/null
+busybox chmod 755 $path/root
+busybox clear
+busybox echo "Proses selesai"
+busybox echo ""
+busybox echo "Harap segera lakukan Reboot"
+busybox sleep 2
+busybox clear
+busybox sh $cronm
+fi 2>/dev/null
+fi
+
+if [ $mnu -eq 6 ];then
+
+if [ "`grep =enamj= /system/etc/cron/root`" ];then
+
+busybox rm /system/etc/cron/root 2>/dev/null
+busybox echo "Booster sudah di matikan, kembali..."
+busybox sleep 2
+busybox clear
+
+else
+
+busybox rm -f $log 2>/dev/null
+busybox touch $log
+busybox clear
+busybox echo "Memproses..."
+busybox sleep 2
+busybox cp $ngz/cron_6jam $path/root 2>/dev/null
+busybox chmod 755 $path/root
+busybox clear
+busybox echo "Proses selesai"
+busybox echo ""
+busybox echo "Harap segera lakukan Reboot"
+busybox sleep 2
+busybox clear
+busybox sh $cronm
+fi 2>/dev/null
+fi 
+
+if [ $mnu -eq 7 ];then
+busybox clear
+busybox sh /system/bin/10ngz
+fi

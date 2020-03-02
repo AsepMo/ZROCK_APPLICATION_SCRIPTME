@@ -1,0 +1,49 @@
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/dkp.log 
+busybox rm -f $ngz
+busybox touch $ngz
+busybox clear
+	if [ -e /proc/sys/kernel/panic_on_oops ];then
+		busybox echo "0" > /proc/sys/kernel/panic_on_oops
+		busybox sleep 0.5
+fi
+
+  if [ -e /proc/sys/vm/panic_on_oom ];then
+     busybox chmod 644 /proc/sys/vm/panic_on_oom 2>/dev/null
+		busybox echo "0" > /proc/sys/vm/panic_on_oom
+		busybox sleep 0.5
+fi
+
+	if [ -e /proc/sys/kernel/panic ];then
+		busybox echo "0" > /proc/sys/kernel/panic
+		busybox sleep 0.5
+fi
+
+	if [ -e /proc/sys/kernel/hung_task_timeout_secs ];then
+		busybox echo "0" > /proc/sys/kernel/hung_task_timeout_secs
+		busybox sleep 0.5
+fi
+
+		busybox clear
+		busybox echo "Proses Disable Kernel Panic selesai" | tee -a $ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a $ngz
+		busybox echo "$(date +"%d-%Y %H:%M" ) Pemasangan Disable Kernel Panic Berhasil" | tee -a $ngz
+		busybox sleep 2
+		busybox clear

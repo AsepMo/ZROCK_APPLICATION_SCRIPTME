@@ -1,0 +1,75 @@
+#!/system/bin/sh
+#=lmkse=
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/ramop.log 
+busybox rm -f $ngz
+busybox touch $ngz
+
+#alokasi cache
+
+	if [ -e /proc/sys/vm/vfs_cache_pressure ]; then
+     busybox chmod 644 /proc/sys/vm/vfs_cache_pressure 2>/dev/null 
+		busybox echo "50" > /proc/sys/vm/vfs_cache_pressure
+fi
+
+#minfree lebih teroptimasi (JANGAN DI UBAH) - inspired by l speed (paget96) and was modified by torment
+
+main1=$((1406672))
+
+	lmk7=$((8*1024/4));
+	lmk8=$((12*1024/4));
+	lmk9=$((25*1024/4));
+	lmk10=$((32*1024/4));
+	lmk11=$((48*1024/4));
+	lmk12=$((72*1024/4));
+	lmk13=$((8*1024/4));
+	lmk14=$((12*1024/4));
+	lmk15=$((25*1024/4));
+	lmk16=$((48*1024/4));
+	lmk17=$((64*1024/4));
+	lmk18=$((72*1024/4));
+	lmk19=$((8*1024/4));
+	lmk20=$((25*1024/4));
+	lmk21=$((25*1024/4));
+	lmk22=$((56*1024/4));
+	lmk23=$((72*1024/4));
+	lmk24=$((96*1024/4));
+
+if [ "$main1" -lt 1048576 ]; then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "$lmk7,$lmk8,$lmk9,$lmk10,$lmk11,$lmk12" >/sys/module/lowmemorykiller/parameters/minfree
+elif [ "$main1" -lt 2097152 ]; then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "$lmk13,$lmk14,$lmk15,$lmk16,$lmk17,$lmk18" > /sys/module/lowmemorykiller/parameters/minfree
+else 
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "$lmk19,$lmk20,$lmk21,$lmk22,$lmk23,$lmk24" > /sys/module/lowmemorykiller/parameters/minfree
+fi
+
+if [ -e /sys/module/lowmemorykiller/parameters/cost ];then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/cost
+	busybox echo "32" > /sys/module/lowmemorykiller/parameters/cost
+fi
+		busybox clear
+		busybox echo "Proses Multitasking selesai" | tee -a $ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a $ngz
+		busybox echo "$(date +"%d-%Y %H:%M" ) Pemasangan Multitasking berhasil" | tee -a $ngz
+		busybox sleep 2
+		busybox clear

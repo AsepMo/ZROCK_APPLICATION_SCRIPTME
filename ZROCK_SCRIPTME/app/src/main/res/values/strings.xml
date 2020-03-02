@@ -216,4 +216,228 @@
     <string name="changelog_row_bulletpoint">\u2022"</string>
 
 
+	<!-- String For ScriptMe -->
+	<string name="ngz_afterlife_label_1">Ngebutz MOD (Tweak untuk hp android karya anak bangsa) - Script + Flashabel .ZIP</string>
+	<string name="ngz_afterlife_title_1">Tweaks 1.After Life</string>
+	<string name="ngz_afterlife_message_1">
+		Assalamualaikum Wr,Wb
+
+		Permisi Agan/Sista, Saya Ingin Sharing Nih Tweak Yang Dibuat Oleh Kawan Kita Untuk HP Android, Nah Tweak Ini Untuk Meningkatkan Performa, Dan Menghemat Baterai, Dan Tweaknya Tidak Besar kok, Jadi Tidak Menuh-menuhin Memori HP Agan/Sista.
+
+		Nah terus, tweak ini masih dalam berbentuk script, jadi untuk memasangnya masih sedikit ribet, dan untuk menggunakannya perlu melalui terminal, tapi tenang aja, insya allah gacor kok tweaknya hehehe .
+
+		Dan untuk penggunaannya masih manual, alias butuh aplikasi terminal karena seperti yang sudah saya bilang tadi kalau, tweak ini masih berbentuk script
+
+		Fitur Ngebutz-MOD :
+		 
+		######
+		Sistem
+		######
+		 
+		- Ultimate booster
+		 
+		Penjelasan :  berfungsi untuk memboosting kinerja hp sobat dengan menghapus cache, dan menghentikan proses sesuai dengan waktu yang sudah di tentukan, dan di situ sudah saya bagi menjadi 6 waktu.
+		 
+		- Build.prop Tweak
+		 
+		Penjelasan : berfungsi untuk mentweak file build.prop di hp sobat. di dalam tweak tersebut sudah saya tambahkan tweak build.prop terbaik yang sudah di gunakan oleh ribuan pembaca situs cuman android.
+		 
+		Bagi kalian yang ingin mencari tau apasih build.prop itu, bisa buka link ini :
+		 
+		#baca Tentang Build.prop Tweak by Cuman Android
+		 
+		- Set CPU
+		 
+		Penjelasan : berfungsi untuk merubah frekuensi cpu yang sedang berjalan, dan dengan tweak ini sobat bisa melakukan Overclock, dan Underclock. (harap hati-hati dengan apa yang sobat lakukan)
+		 
+		- Set GOV (CPU Governor)
+		 
+		Penjelasan : berfungsi untuk merubah tipe cpu governor, dan perlu di ketahui kalau tipenya itu ada banyak, dan beragam, jadi dengan tweak ini sobat bisa menyesuaikan mana yang terbaik untuk hp sobat.
+		 
+		- Governor Optimizer
+		 
+		Penjelasan : berfungsi untuk mengoptimasi kinerja governor di hp sobat dengan menyesuaikan tipe governor yang sedang sobat pakai, jadi misalnya sobat menggunakan interactive, maka tweak ini akan menyesuaikan dengan interactive, dan begitu juga seterusnya.
+		 
+		Yang tersedia :
+		 
+		- Interactive
+		- Ondemand
+		- Conservative
+		- PegasusQ
+		- SmartAssV2
+		- Lionheart
+		- lulzactive
+		 
+		- Kernel Optimizer
+		 
+		Penjelasan : berfungsi untuk mengoptimasi kernel di hp sobat supaya bisa berkerja lebih baik, dengan mengatur shared page memori yang sudah di kalkulasi berdasarkan memori hp yang sebenarnya, dan tweak ini bisa di pakai di berbagai macam custom/ori rom apabila support.
+		 
+		- Disable Kernel Panic
+		 
+		Penjelasan : berfungsi untuk mengatasi random reboot atau bluescreen yang sering terjadi akibat kernel panic.
+		 
+		- Multicore Power Saving
+		 
+		Penjelasan : berfungsi untuk menghemat baterai dengan cara melimit kinerja core pada cpu, apabila cpu hp sobat mempunyai lebih dari satu core, maka tweak ini bisa di gunakan. (tweak ini akan menurunkan performa sebanyak 25%)
+		 
+		- Kernel Sampage Merge
+		 
+		Penjelasan : berfungsi untuk mengoptimasi ram melalui shared memory dengan menggabungkan data yang bernilai sama, sehingga tidak mebebankan ram.
+		 
+		- Media Server Killer
+		 
+		Penjelasan berfungsi untuk menonaktifkan proses yang sedang berjalan, contohnya ketika anda sedang buka browser kemudian menggunakan tweak ini, maka browser tersebut akan tertutup.
+		 
+		- RAM Manager
+		 
+		Penjelasan : berfungsi untuk mengoptimasi ram dengan mengkalkulasi lowmemorykiller dan adj sesuai dengan memori yang sudah di kalkukasi terlebih dulu.
+		 
+		Fitur di atas memungkinkan sobat untuk mengedit lowmemory killer, atau dengan kata lain fitur tersebut adalah ram manager versi mini, jadi sobat bisa mengatur performanya sesuka hati ￼
+
+		- Google Play Service FIX
+		 
+		Penjelasan : berfungsi untuk mengatasi pemborosan baterai yang di lakukan oleh google play service, tweak ini akan membuat baterai hp sobat jadi lebih hemat. (tahap pengembangan)
+		 
+		- Heap Size Tuner
+		 
+		Penjelasan : berfungsi untuk mengatur performa dalam mengakses banyak/sedikitnya aplikasi, dan sebelum merubah harap perhatikan dulu aturan defaultnya, kalau defaultnya besar, jangan di seting terlalu kecil karena performa hp kalian bisa drop.
+		 
+		- Mpdecision - Battery saver qualcomm
+		 
+		Penjelasan : Berfungsi untuk mengatasi Mpdecision yang menyebabkan baterai menjadi boros di android yang berbasis qualcomm (snapdragon).
+		 
+		######
+		Memori
+		######
+		 
+		- VM (Virtual Memori) Tweak
+		 
+		Penjelasan : berfungsi untuk memberikan efek seimbang (performa &amp;amp; baterai) untuk hp android dengan mengoptimasi value pada virtual memori.
+		 
+		- SD Card Fix
+		 
+		Penjelasan : berfungsi untuk meningkatkan r/w pada sd card (tweak ini akan berkerja apabila di hp sobat terdapat sd card).
+		 
+		- OOM Dump Task
+		 
+		Penjelasan : berfungsi untuk meningkatkan performa dengan mengaktifkan oom killer untuk menonaktifkan beberapa task atau proses yang sedang berjalan.
+		 
+		- I/O Scheduler Optimizer
+		 
+		Penjelasan : berfungsi untuk mengoptimasi proses input, dan output pada hp anda dengan merubah value di bagian sistem.
+		 
+		- Extreme Flag Tuner
+
+		Penjelasan : berfungsi untuk meningaktkan multitasking dengan mengoptimasi oems sehingga dapat membuka banyak aplikasi tanpa patah&amp;quot; atau ngelag
+
+		-  SET I/O Scheduler
+		 
+		Penjelasan : berfungsi untuk merubah tipe I/O Scheduler yang cukup banyak tipenya, jadi dengan tweak ini sobat bisa menentukan mana scheduler terbaik dan pass untuk hp sobat.
+		 
+		######
+		Tampilan
+		######
+		 
+		- Liquid Smooth UI
+		 
+		Penjelasan : berfungsi supaya tampilan terlihat lebih smooth.
+		 
+		- Better Scrolling
+		 
+		Penjelasan : berfungsi supaya main enak waktu scrolling halaman.
+		 
+		- Disable Animasi Booting
+		 
+		Penjelasan : berfungsi untuk menonaktifkan animasi boot.
+		 
+		######
+		Internet
+		######
+		 
+		- ADBlocker Plus-Plus
+		 
+		Penjelasan : berfungsi untuk memblokir iklan bandel yang ada di browser.
+		 
+		- Google DNS
+		 
+		Penjelasan : berfungsi untuk menambahkan google dns ke dns bawaan di hp sobat.
+		 
+		- Internet Speed Tweak
+		 
+		Penjelasan : berfungsi untuk meningkatkan kecepatan internet dengan mengoptimasi net beserta ipv4 sehingga bisa meningkatkan kecepatan sinyal 3G.
+		 
+		######
+		Tools
+		######
+		 
+		- Cache Cleaner (Cache &amp;amp; Dalvik Cache)
+		 
+		Penjelasan : berfungsi untuk membersihkan cache beserta dalvik cache, dan jika kalian ingin pembersihan cache secara otomatis, gunakan Ultimate Booster.
+		 
+		- FSTrim
+		 
+		Penjelasan : berfungsi untuk mengoptimasi NAND Chips pada memori untuk meningkatkan performa, baiknya fstrim hp sobat seminggu 1x, atau setiap habis reboot.
+		 
+		- Power Menu
+		 
+		Penjelasan : berfungsi untuk memudahkan sobat untuk melakukan reboot saja atau reboot ke recovery atau bootloader.
+		 
+		- Informasi
+		 
+		Penjelasan : berfungsi untuk menampilkan informasi hp sobat.
+		 
+		Nah kurang lebih seperti itulah fitur yang ada di dalam tweak saya ini, dan untuk cara pemasangannya itu seperti ini :
+
+		(DO WITH YOUR OWN RISK) Cara Pemasangan : 
+		 
+		#1. Pastikan hp sobat sudah di Root.
+
+		#2. Pastikan hp sudah terpasang aplikasi Terminal Emulator, dan Busybox.
+
+		#3. Pastikan hp sudah support INIT.D.
+
+		Caranya cukup gunakan aplikasi root browser, lalu buka folder etc/init.d atau /system/etc/init.d, jika ada folder init.d, itu tandanya hp sobat sudah support.
+
+		#6. Pastikan tidak ada tweak lain yang terpasang.
+
+		#7. Kemudian silahkan download tweaknya di bawah ini (google drive) :
+
+		OFFICIAL :
+
+		Ngebutz Afterlife Version (Stable) :
+
+		- NGZ-AFTERLIFE-V.1.0.0
+
+		#8.Setelah selesai di download, silahkan restart hpnya ke custom recovery.
+
+		#9. Pada saat di custom recovery, install file NGZ-MOD-v.1.5 tadi yang sudah di download, kemudian clear-dalvik ache (jika perlu) lalu reboot.
+
+		#10. Selesai pemasangannya.
+
+		#11. Untuk menggunakannya, buka aplikasi Terminal (termux/material terminal), lalu ketikan ‘su’ enter, kemudian ‘00ngz’ enter (ketikan keduanya tanpa ‘’).
+
+		Daftar Fitur Ngebutz MOD :
+
+		Pada versi Afterlife 1.0.0 (4/30/2018) :
+
+		- Ram Manager (Bisa mengedit value lowmemorykiller)
+		- Optimize Kernel (Auto Fsync, dan Fast Charger)
+		- Optimize VM memory
+		- Optimize IO Scheduler
+		- Optimize Build.prop
+		- Optimize Profile
+		- Optimize Init.d System
+		- Optimize Google Play Service Fix
+		- Optimize Power Tools
+		- Optimize Code
+
+		Yap kurang lebih seperti itu penjabaran dari tweak saya, dan bagi yang ingin melihat lebih tentang penjelasannya, silahkan mengunjungi artikel sumber : 
+		
+	</string>
+	<string name="ngz_afterlife_label_2">VIPER4ANDROID - Script + Flashabel .ZIP</string>
+	<string name="ngz_afterlife_title_2">Tweaks 2.Sound Bass</string>
+	<string name="ngz_afterlife_message_2">Tweaks Kedua Dari ScriptMe Adalah VIPER4ANDROID Yang Berfungsi Untuk Meningkatkan Performa Dari Sound Android Anda(SPEAKER AND HEADSET).Tweaksnya Berbentuk Apk Setting Sound./n Dan Terhubung Dengan XPOSED FRAMEWORK.
+		Oleh Karena Itu,Sebelum Memasang Tweaks Ini.HP Anda Harus Dalam Keadaan ROOT Dan Terpasang XPOSED FRAMEWORK.Jika HP Anda Belum ROOT Dan Belum Terpasang XPOSED FRAMEWORK.Maka Anda Bisa Mengklik Tombol ROOT AND XPOSED Dibawah./n
+		Jika Sudah ROOT Dan Sudah Terpadang XPOSED FRAMEWORK.Maka Silahkan Tekan Tombol INSTALL.</string>
+	
 </resources>

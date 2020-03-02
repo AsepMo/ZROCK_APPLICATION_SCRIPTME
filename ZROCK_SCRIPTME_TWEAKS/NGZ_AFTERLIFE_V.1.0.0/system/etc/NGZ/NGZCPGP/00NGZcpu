@@ -1,0 +1,130 @@
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+# Original Script written by clvv <x@wei23.net> taken on github and was open source
+# Modified Script written by Muhammad Irham <cuman-android.blogspot.co.id>
+#garis
+garis1="\e[0;100m========================================\e[00;37;40m"
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+path=/system/etc/init.d
+cpupath=/system/etc/NGZ/NGZCPGP
+#PATHCEK
+if [ -e $path/90ct ];then
+	cpud="\e[1;32mValue Di Simpan\e[0m"
+else
+	cpud="\e[1;31mValue Belum Simpan\e[0m"
+fi
+	busybox clear
+	busybox echo -n "Lanjutkan Proses ? (yes/no) : "
+	read baca
+	if [ $baca = "yes" ];then
+	busybox clear
+	busybox echo -e $garis1
+	busybox echo -e "\e[1;32mCPU TUNER\e[00;37;40m"
+	busybox echo -e $garis1
+	busybox echo ""
+    fq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies)
+    busybox echo -n "1. Frekuensi CPU Terendah: "; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+	busybox echo ""
+    busybox echo -n "2. Frekuensi CPU Tertinggi: "; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    busybox echo ""
+	busybox echo -n "3. Frekuensi CPU saat ini: "; cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+	busybox echo ""
+	busybox echo -e "4. Kondisi CPU Tuner || $cpud"
+    busybox echo ""
+    busybox echo -e $garis1
+ 	busybox echo ""
+    busybox echo -e "Frekuensi CPU yang tersedia:"
+	busybox echo ""
+
+#####OURSHIT#####
+peta=/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies
+max=15
+for number in `seq 1 $max`
+do
+angka=$((`awk '{print $'$number'}' $peta `))
+if [ $angka = 0 ];then
+echo $number. Tidak Tersedia
+else
+echo $number. $angka
+fi
+done
+##################
+
+	busybox echo ""
+	busybox echo -e $garis1
+	busybox echo ""
+	busybox echo -n "Masukan Frekuensi CPU : "
+    read max
+    if [ $max ]; then
+    if [ $(echo $fq | grep -q -E "$max"; echo $?) -eq 0 ]; then
+    busybox echo $max > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 
+	busybox echo ""
+	busybox echo "============================================="
+	busybox echo -e "\e[1;32mFREKUENSI CPU TERBARU\e[00;37;40m"
+	busybox echo "============================================="
+	busybox echo ""
+    busybox echo -n "Frekuensi CPU saat ini: "; 
+	busybox echo $max | awk '{print}' 
+    busybox echo ""
+	busybox echo -n "Aktifkan saat reboot ? (yes/no) : " 
+	read mnu
+	 if [ $mnu = "yes" ];then
+     if [ -e $path/90ct ];then
+     busybox rm -rf $path/90ct
+	 fi
+		
+busybox touch $path/90ct
+busybox chmod 755 $path/90ct
+busybox cat > $path/90ct << cpuhuy
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+busybox echo "$max" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 
+cpuhuy
+
+   sh $path/90ct
+   elif [ $mnu = "no" ]; then
+   if [ -e $path/90ct ];then
+   busybox rm -rf $path/90ct
+   fi
+   busybox sleep 1
+   else
+   busybox sleep 1
+	fi
+    else
+	busybox echo ""
+    busybox echo "Waduh valuenya salah tuh, ulangi lagi ya" 1>&2
+	busybox sleep 2
+	busybox clear
+	busybox sh $cpupath/00NGZcpu
+    fi
+    fi
+   busybox echo ""
+   busybox echo "Proses selesai, kembali..."
+   busybox sleep 2
+   busybox sh /system/bin/11ngz
+   elif [ $baca = "no" ];then
+   busybox clear
+   busybox echo "Proses tidak di lanjutkan, kembali..."
+   busybox sleep 2
+   busybox sh /system/bin/11ngz
+   else
+   busybox clear
+   busybox echo "Maaf, harap ulangi inputan anda"
+   busybox sleep 2
+   busybox clear
+   sh $cpupath/00NGZcpu
+   fi

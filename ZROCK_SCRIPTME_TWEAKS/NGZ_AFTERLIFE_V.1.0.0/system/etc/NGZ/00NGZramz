@@ -1,0 +1,146 @@
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) Cuman Android All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+#bashcolorcode
+cyan='\e[1;36m' 
+garis="\e[0;90m========================================\e[00;37;40m"
+##########
+
+busybox clear
+busybox echo ""
+busybox echo -e "\e[1;31m##########################\e[0m"
+busybox echo ""
+########Calculate by Cuman Android#########
+
+f1=`awk -F , '{print \$1}' /sys/module/lowmemorykiller/parameters/minfree`;
+f2=`awk -F , '{print \$2}' /sys/module/lowmemorykiller/parameters/minfree`;
+f3=`awk -F , '{print \$3}' /sys/module/lowmemorykiller/parameters/minfree`;
+f4=`awk -F , '{print \$4}' /sys/module/lowmemorykiller/parameters/minfree`;
+f5=`awk -F , '{print \$5}' /sys/module/lowmemorykiller/parameters/minfree`;
+f6=`awk -F , '{print \$6}' /sys/module/lowmemorykiller/parameters/minfree` 
+slot1=$(($f1*4/1024))
+slot2=$(($f2*4/1024))
+slot3=$(($f3*4/1024))
+slot4=$(($f4*4/1024))
+slot5=$(($f5*4/1024))
+slot6=$(($f6*4/1024))
+##########################
+
+busybox echo -e $garis
+busybox echo -e "Default Value = $cyan $slot1, $slot2, $slot3, $slot4, $slot5, $slot6"
+busybox echo -e $garis
+busybox echo ""
+busybox echo -e "\e[1;32m[ NOTE ]\e[0m"
+busybox echo ""
+busybox echo "Masukan Valuenya saja per inputan"
+busybox echo ""
+busybox echo "Contoh : 20, 10 atau 30"
+busybox echo ""
+busybox echo -e "\e[1;31m##########################\e[0m"
+busybox echo ""
+busybox echo -n "1. Foreground APP 	:  "
+read fr
+busybox echo ""
+busybox echo -n "2. Visible APP 	        :  "
+read vb
+busybox echo ""
+busybox echo -n "3. Secondary Server     :  "
+read ss
+busybox echo ""
+busybox echo -n "4. Hidden App 		:  "
+read ha
+busybox echo ""
+busybox echo -n "5. Content Provider 	:  "
+read cp
+busybox echo ""
+busybox echo -n "6. Empty App 		:  "
+read ea
+busybox echo ""
+busybox echo ""
+busybox echo "Harap Tunggu, sedang memproses..."
+busybox echo ""
+busybox sleep 2
+
+#########################
+#PROCESS IS HERE
+#########################
+
+path=/system/etc/init.d
+
+lmk1=$(($fr*1024/4));
+lmk2=$(($vb*1024/4));
+lmk3=$(($ss*1024/4));
+lmk4=$(($ha*1024/4));
+lmk5=$(($cp*1024/4));
+lmk6=$(($ea*1024/4));
+
+if [ -e $cloe/00NGZ_BATERAI ];then
+busybox rm -f $cloe/00NGZ_BATERAI
+fi 
+if [ -e $cloe/00NGZ_BALANCE ];then
+busybox rm -f $cloe/00NGZ_BALANCE
+fi
+if [ -e $cloe/00NGZ_PERFORMA ];then
+busybox rm -f $cloe/00NGZ_PERFORMA
+fi
+
+if [ -e $path/00NGZlmkb ];then
+busybox rm -rf $path/00NGZlmkb
+fi
+if [ -e $path/00NGZlmkp ];then
+busybox rm -rf $path/00NGZlmkp
+fi		
+if [ -e $path/00NGZlmkm ];then
+busybox rm -rf $path/00NGZlmkm
+fi		
+if [ -e $path/00NGZlmkt ];then
+busybox rm -rf $path/00NGZlmkt
+fi		
+
+busybox rm -f $path/00NGZlmkt
+busybox touch $path/00NGZlmkt
+busybox chmod 755 $path/00NGZlmkt
+busybox cat > $path/00NGZlmkt << lmkt
+#!/system/bin/sh
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+busybox echo "$lmk1,$lmk2,$lmk3,$lmk4,$lmk5,$lmk6" >/sys/module/lowmemorykiller/parameters/minfree
+busybox sleep 1
+
+#alokasi cache normal
+
+if [ -e /proc/sys/vm/vfs_cache_pressure ]; then
+     busybox chmod 644 /proc/sys/vm/vfs_cache_pressure 2>/dev/null 
+		busybox echo "70" > /proc/sys/vm/vfs_cache_pressure
+fi
+
+if [ -e /sys/module/lowmemorykiller/parameters/cost ];then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/cost
+	busybox echo "32" > /sys/module/lowmemorykiller/parameters/cost
+fi
+
+lmkt
+
+		busybox echo "Proses selesai, segera reboot..."
+		busybox echo ""
+     busybox sleep 1
+		busybox echo "kembali..."
+busybox sleep 1
+busybox clear
+sh /system/bin/11ngz

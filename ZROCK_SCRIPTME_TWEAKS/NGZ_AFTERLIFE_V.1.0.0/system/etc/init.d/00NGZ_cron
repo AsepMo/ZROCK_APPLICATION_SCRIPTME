@@ -1,0 +1,13 @@
+#!/system/bin/sh
+mount -o remount,rw /system
+
+	echo "root:x:0:0::/system/etc/cron:/system/bin/sh" > /system/etc/passwd
+	echo "root:x:0:root" > /system/etc/group
+	echo "root:*:12410:0:99999:7:::" > /system/etc/shadow
+
+	ln -s /system/bin/ /bin 2>/dev/null
+
+busybox chmod 755 /system/etc/cron/root
+
+crond -b -c /system/etc/cron -l 0 -L /system/etc/NGZ/ngzlog/cron1.log
+crond -b -c /var/spool/cron/crontabs

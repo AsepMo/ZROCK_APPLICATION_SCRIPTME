@@ -1,0 +1,248 @@
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+busybox mount -o remount,noatime,nodiratime /dev 2> /dev/null
+busybox mount -o remount,noatime,nodiratime /proc 2> /dev/null
+busybox mount -o remount,noatime,nodiratime /sys 2> /dev/null
+busybox mount -o remount,noatime,nodiratime /system 2> /dev/null
+ngz=/system/etc/NGZ/ngzlog/balance.log 
+busybox rm -f $ngz
+busybox touch $ngz
+#==============IOSCH==============#
+busybox clear
+#IO SCHEDULER OPTIMIZER
+BML="ls -d /sys/block/bml*" 2> /dev/null;
+STL="ls -d /sys/block/stl*" 2> /dev/null;
+MMC="ls -d /sys/block/mmc*" 2> /dev/null;
+MTD="ls -d /sys/block/mtd*" 2> /dev/null;
+LOOP="ls -d /sys/block/loop*" 2> /dev/null;
+for j in $BML $STL $MMC $MTD;
+do
+
+	if [ -e $j/queue/rotational ];then
+		busybox echo "0" > $j/queue/rotational
+fi
+
+  if [ -e $j/queue/rq_affinity ];then
+		busybox echo "1" > $j/queue/rq_affinity
+fi
+
+  if [ -e $j/queue/nr_requests ];then
+		busybox echo "512" > $j/queue/nr_requests
+fi
+
+if [ -e $j/queue/nomerges ];then
+		busybox echo "1" > $j/queue/nomerges
+fi
+
+if [ -e $j/queue/read_ahead_kb ];then
+     busybox echo "512" > $j/queue/read_ahead_kb
+fi
+
+if [ -e $j/queue/iostats ];then
+     busybox echo "0" > $j/queue/iostats
+fi
+
+ 
+done
+
+#==============IOSCH==============#
+
+#==============KERNEL==============#
+
+mem=$((`awk '/MemTotal/{print $2}' /proc/meminfo`))
+max=$(($mem*75/100));
+all=$(($max*80/100));
+filemax=$(($mem*(4096/1024)/10))
+
+	if [ -e /proc/sys/kernel/shmmax ]; then 
+       	busybox echo "$max" > /proc/sys/kernel/shmmax
+fi
+
+	if [ -e /proc/sys/kernel/shmall ]; then 
+      	busybox echo "$all" > /proc/sys/kernel/shmall
+fi
+
+	if [ -e /proc/sys/fs/file-max ];then
+		busybox echo "$filemax" > /proc/sys/fs/file-max 
+fi 
+
+	if [ -e /proc/sys/kernel/shmmni ]; then
+      	busybox echo "4096" > /proc/sys/kernel/shmmni
+fi
+
+if [ -e /proc/sys/kernel/sem ]; then 
+        busybox echo "350 32000 32 128" > /proc/sys/kernel/sem 
+fi
+
+	if [ -e /proc/sys/fs/lease-break-time ];then
+		busybox echo "25" > /proc/sys/fs/lease-break-time;
+fi
+
+#CFS-CONTROL
+
+if [ -e /proc/sys/kernel/sched_latency_ns ];then
+busybox echo "24000000" > /proc/sys/kernel/sched_latency_ns
+fi
+
+if [ -e /proc/sys/kernel/sched_min_granularity_ns ];then
+busybox echo "10000000" > /proc/sys/kernel/sched_min_granularity_ns
+fi
+
+
+if [ -e /proc/sys/kernel/sched_wakeup_granularity_ns ];then
+busybox echo "25000000" > /proc/sys/kernel/sched_wakeup_granularity_ns
+fi
+
+
+#==============KERNEL==============#
+
+#==============Virtual==============#
+
+SSMF=`awk -F , '{print $1}' /sys/module/lowmemorykiller/parameters/minfree`;
+
+MFK=$((($mem/$SSMF)/8))
+
+##################################
+#This calculator has create and Inspired by legend (Zeppelinerox)
+##################################
+
+for i in $vm;
+do
+
+if [ -e $i/min_free_kbytes ];then
+     busybox chmod 644 $i/min_free_kbytes 2>/dev/null
+		busybox echo "$MFK" > $i/min_free_kbytes
+fi
+
+	if [ -e $i/overcommit_memory ];then
+     busybox chmod 644 $i/overcommit_memory 2>/dev/null
+		busybox echo "1" > $i/overcommit_memory
+fi
+
+#########
+#Battery
+#########
+
+	if [ -e $i/dirty_expire_centisecs ];then
+     busybox chmod 644 $i/dirty_expire_centisecs 2>/dev/null
+		busybox echo "500" > $i/dirty_expire_centisecs
+fi
+
+	if [ -e $i/dirty_writeback_centisecs ];then
+     busybox chmod 644 $i/dirty_writeback_centisecs 2>/dev/null
+		busybox echo "2000" > $i/dirty_writeback_centisecs
+fi
+
+#####
+#Memori
+#####
+
+if [ -e $i/dirty_ratio ];then
+     busybox chmod 644 $i/dirty_ratio 2>/dev/null
+		busybox echo "30" > $i/dirty_ratio
+fi
+
+if [ -e $i/dirty_background_ratio ];then
+     busybox chmod 644 $i/dirty_background_ratio 2>/dev/null
+		busybox echo "10" > $i/dirty_background_ratio
+fi
+
+
+done
+#==============Virtual==============#
+
+#==============RAM==============#
+
+	if [ -e $i/vfs_cache_pressure ]; then
+     busybox chmod 644 $vm/vfs_cache_pressure 2>/dev/null 
+		busybox echo "70" > $vm/vfs_cache_pressure
+fi
+
+#minfree lebih teroptimasi (JANGAN DI UBAH) - inspired by l speed (paget96) 
+
+main1=$((`awk '/MemTotal/{print $2}' /proc/meminfo`))
+
+	lmk7=$((32*1024/4));
+	lmk8=$((48*1024/4));
+	lmk9=$((54*1024/4));
+	lmk10=$((64*1024/4));
+	lmk11=$((72*1024/4));
+	lmk12=$((80*1024/4));
+
+	lmk13=$((32*1024/4));
+	lmk14=$((48*1024/4));
+	lmk15=$((54*1024/4));
+	lmk16=$((72*1024/4));
+	lmk17=$((80*1024/4));
+	lmk18=$((96*1024/4));
+
+	lmk19=$((32*1024/4));
+	lmk20=$((48*1024/4));
+	lmk21=$((54*1024/4));
+	lmk22=$((80*1024/4));
+	lmk23=$((96*1024/4));
+	lmk24=$((120*1024/4));
+
+if [ "$main1" -lt 1048576 ]; then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "$lmk7,$lmk8,$lmk9,$lmk10,$lmk11,$lmk12" >/sys/module/lowmemorykiller/parameters/minfree
+elif [ "$main1" -lt 2097152 ]; then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "$lmk13,$lmk14,$lmk15,$lmk16,$lmk17,$lmk18" > /sys/module/lowmemorykiller/parameters/minfree
+else 
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/minfree
+	busybox echo "$lmk19,$lmk20,$lmk21,$lmk22,$lmk23,$lmk24" > /sys/module/lowmemorykiller/parameters/minfree
+fi
+
+if [ -e /sys/module/lowmemorykiller/parameters/cost ];then
+	busybox chmod 644 /sys/module/lowmemorykiller/parameters/cost
+	busybox echo "32" > /sys/module/lowmemorykiller/parameters/cost
+fi
+
+#==============RAM==============#
+
+#==============Cleaner==============#
+		busybox find /data/data -type d -iname "*cache*" -maxdepth 2 -mindepth 2 -exec busybox rm -fr {}/ ';' 
+		busybox rm -f /data/slog/* 2>/dev/null 
+		busybox rm -f /data/system/dropbox/*.* 2>/dev/null
+		busybox rm -f /data/mlog/* 2>/dev/null
+		busybox rm -f /data/log/*.* 2>/dev/null
+		busybox rm -f /dev/log/main/* 2>/dev/null
+		busybox rm -f /data/backup/pending/*.tmp 2>/dev/null
+		busybox rm -f /data/tombstones/*.* 2>/dev/null
+     busybox rm -f /data/last_alog/* 2>/dev/null
+     busybox rm -f /data/last_kmsg/* 2>/dev/null
+		busybox rm -f /data/local/*.apk 2>/dev/null
+		busybox rm -f /data/local/tmp/* 2>/dev/null
+		buysbox rm -f /data/anr/* 2>/dev/null 
+     busybox rm -f /cache/*.apk 2>/dev/null
+     busybox rm -f /cache/*.tmp 2>/dev/null
+     busybox rm -f /data/data/*/cache/* 2>/dev/null
+     busybox rm -f /data/clipboard/* 2>/dev/null
+     busybox rm -f /dev/log/main/* 2>/dev/null
+     busybox rm -f /data/mlog/* 2>/dev/null
+     busybox rm -f /data/cache/*.* 2>/dev/null
+     busybox rm -f /data/log/* 2>/dev/null
+     busybox rm -f /data/system/dropbox/* 2>/dev/null
+     busybox rm -f /cache/*.log 2>/dev/null
+     busybox rm -f /data/system/usagestats/* 2>/dev/null
+#==============Cleaner==============#
+
+		busybox echo "" | tee -a $ngz
+		busybox echo "$(date +"%d-%Y %H:%M" ) Pemasangan Profile Balance berhasil" | tee -a $ngz
+		busybox sleep 2
+		busybox clear

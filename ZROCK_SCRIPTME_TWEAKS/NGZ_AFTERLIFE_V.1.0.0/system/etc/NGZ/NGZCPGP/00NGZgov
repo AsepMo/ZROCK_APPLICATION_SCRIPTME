@@ -1,0 +1,200 @@
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#=======================================================================#
+
+#Tweak akan mengoptimasi governor
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ngz=/system/etc/NGZ/ngzlog/gov.log 
+busybox rm -f $ngz
+busybox touch $ngz
+
+busybox clear
+busybox echo "Tweak akan memilih settingan terbaik untuk anda..."
+busybox sleep 2
+busybox clear
+busybox echo "Memproses..."
+
+int=/sys/devices/system/cpu/cpufreq/interactive
+ond=/sys/devices/system/cpu/cpufreq/ondemand
+con=/sys/devices/system/cpu/cpufreq/conservative
+pgq=/sys/devices/system/cpu/cpufreq/pegasusq
+sass=/sys/devices/system/cpu/cpufreq/smartassV2
+lion=/sys/devices/system/cpu/cpufreq/lionheart
+lul=/sys/devices/system/cpu/cpufreq/lulzactive
+gov=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor`
+
+#Thanks Droidphile@xda
+
+# interactive, ondemand, conservative, pegasusq, smartassV2, Lionheart, Lulzactive
+# tweak akan berjalan apabila stringnya sesuai
+
+	if [ $gov="interactive" ];then
+	busybox sleep 1
+	if [ -e $int ];then
+		busybox echo "90" > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+		busybox echo "1200000" > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+		busybox echo "20000" > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+		busybox echo "30000" > /sys/devices/system/cpu/cpufreq/interactive/timer_rate
+	else
+    busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox sleep 2
+		busybox clear
+		busybox echo "Kembali ke menu utama"
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+
+	elif [ $gov="ondemand" ];then
+	busybox sleep 1
+	if [ -e $ond ];then
+		busybox echo "85" /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+		busybox echo "100000" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+		busybox echo "1" > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+		busybox echo "5" > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
+		busybox echo "30" > /sys/devices/system/cpu/cpufreq/ondemand/freq_step
+	else
+     busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox sleep 2
+		busybox clear
+		busybox echo "Kembali ke menu utama"
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+
+	elif [ $gov="conservative" ];then
+	busybox sleep 1
+	if [ -e $con ];then
+		busybox echo "95" > /sys/devices/system/cpu/cpufreq/conservative/up_threshold
+		busybox echo "120000" > /sys/devices/system/cpu/cpufreq/conservative/sampling_rate
+		busybox echo "1" > /sys/devices/system/cpu/cpufreq/conservative/sampling_down_factor
+		busybox echo "40" > /sys/devices/system/cpu/cpufreq/conservative/down_threshold
+		busybox echo "10" > /sys/devices/system/cpu/cpufreq/conservative/freq_step
+	else
+     busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox sleep 2
+		busybox clear
+		busybox echo "Kembali ke menu utama"
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+
+	elif [ $gov="pegasusq" ];then
+	busybox sleep 1
+	if [ -e $pgq ];then
+		busybox echo "90" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold
+		busybox echo "80" > /sys/devices/system/cpu/cpufreq/pegasusq/up_threshold_at_min_freq
+		busybox echo "60000" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_rate
+		busybox echo "1" > /sys/devices/system/cpu/cpufreq/pegasusq/sampling_down_factor
+		busybox echo "5" > /sys/devices/system/cpu/cpufreq/pegasusq/down_differential
+		busybox echo "20" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_step
+		busybox echo "300000" > /sys/devices/system/cpu/cpufreq/pegasusq/freq_for_responsiveness
+		busybox echo "15" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_up_rate
+		busybox echo "15" > /sys/devices/system/cpu/cpufreq/pegasusq/cpu_down_rate
+		busybox echo "0" > /sys/devices/system/cpu/cpufreq/pegasusq/ignore_nice_load
+		busybox echo "1" > /sys/devices/system/cpu/cpufreq/pegasusq/io_is_busy
+		busybox echo "0" > /sys/devices/system/cpu/cpufreq/pegasusq/max_cpu_lock
+		busybox echo "0" > /sys/devices/system/cpu/cpufreq/pegasusq/hotplug_lock
+	else
+     busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox sleep 2
+		busybox clear
+		busybox echo "Kembali ke menu utama"
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+	elif [ $gov="smartassV2" ];then
+	busybox sleep 1
+	if [ -e $sass ];then
+		busybox echo "500000" > /sys/devices/system/cpu/cpufreq/smartassV2/awake_ideal_freq
+		busybox echo "200000" > /sys/devices/system/cpu/cpufreq/smartassV2/sleep_ideal_freq
+		busybox echo "800000" > /sys/devices/system/cpu/cpufreq/smartassV2/sleep_wakeup_freq
+		busybox echo "85" > /sys/devices/system/cpu/cpufreq/smartassV2/max_cpu_load
+		busybox echo "70" > /sys/devices/system/cpu/cpufreq/smartassV2/min_cpu_load
+		busybox echo "200000" > /sys/devices/system/cpu/cpufreq/smartassV2/ramp_up_step
+		busybox echo "200000" > /sys/devices/system/cpu/cpufreq/smartassV2/ramp_down_step
+		busybox echo "48000" > /sys/devices/system/cpu/cpufreq/smartassV2/up_rate_us
+		busybox echo "49000" > /sys/devices/system/cpu/cpufreq/smartassV2/down_rate_us
+	else
+     busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox sleep 2
+		busybox clear
+		busybox echo "Kembali ke menu utama"
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+	elif [ $gov="lionheart" ];then
+	busybox sleep 1
+	if [ -e $lion ];then
+		busybox echo "60" /sys/devices/system/cpu/cpufreq/lionheart/up_threshold
+		busybox echo "20000" > /sys/devices/system/cpu/cpufreq/lionheart/sampling_rate
+		busybox echo "5" > /sys/devices/system/cpu/cpufreq/lionheart/freq_step
+	else
+     busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox sleep 2
+		busybox clear
+		busybox echo "Kembali ke menu utama"
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+	elif [ $gov="lulzactive" ];then
+	busybox sleep 1
+	if [ -e $lul ];then
+		busybox echo "4" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_up_step
+		busybox echo "1" > /sys/devices/system/cpu/cpufreq/lulzactive/pump_down_step
+		busybox echo "10000" > /sys/devices/system/cpu/cpufreq/lulzactive/up_sample_time
+		busybox echo "40000" > /sys/devices/system/cpu/cpufreq/lulzactive/down_sample_time
+		busybox echo "5" > /sys/devices/system/cpu/cpufreq/lulzactive/screen_off_min_step
+	else
+     busybox echo ""
+		busybox echo "Maaf, kernel hp anda tidak support"
+		busybox sleep 2
+		busybox clear
+		busybox echo "Kembali ke menu utama"
+		busybox sleep 2
+		busybox clear
+     exit
+     sh /system/bin/10ngz
+	fi
+	fi
+		busybox clear
+		busybox echo "Proses Governor Tweak selesai" | tee -a $ngz
+		busybox sleep 2
+		busybox echo "" | tee -a $ngz
+		busybox echo "$(date +"%d-%Y %H:%M") Pemasangan Governor Tweak berhasil" | tee -a $ngz
+		busybox sleep 2
+		busybox clear
+		busybox echo "Kembali ke menu utama"
+		busybox sleep 2
+		busybox clear
+		sh /system/bin/11ngz

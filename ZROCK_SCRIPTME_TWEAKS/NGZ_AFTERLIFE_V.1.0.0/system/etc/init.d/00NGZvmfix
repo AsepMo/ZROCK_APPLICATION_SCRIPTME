@@ -1,0 +1,102 @@
+#!/system/bin/sh
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  Copyright (C) 2017 MUHAMMAD IRHAM F (TORMENT) All Rights Reserved
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+#	XXXXXXXXX [] COPYRIGHT [] XXXXXXXXX 
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+mem=$((1440432128))
+ngz=/system/etc/NGZ/ngzlog/vmt.log 
+busybox rm -f $ngz
+busybox touch $ngz
+#swappiness will active if kernel support swap
+vm=/proc/sys/vm
+
+##################################
+#This calculator has create and made by legend (Zeppelinerox), all credit belongs to him and little more thing has been added by PL4GU3
+##################################
+
+SSMF=15360;
+
+MFK=$((($mem/$SSMF)/8))
+
+##################################
+#This calculator has create and made by legend (Zeppelinerox), all credit belongs to him
+##################################
+
+for i in $vm;
+do
+
+if [ -e $i/min_free_kbytes ];then
+     busybox chmod 644 $i/min_free_kbytes 2>/dev/null
+		busybox echo "$MFK" > $i/min_free_kbytes
+fi
+
+	if [ -e $i/overcommit_memory ];then
+     busybox chmod 644 $i/overcommit_memory 2>/dev/null
+		busybox echo "1" > $i/overcommit_memory
+fi
+
+#########
+#Battery
+#########
+
+	if [ -e $i/dirty_expire_centisecs ];then
+     busybox chmod 644 $i/dirty_expire_centisecs 2>/dev/null
+		busybox echo "500" > $i/dirty_expire_centisecs
+fi
+
+	if [ -e $i/dirty_writeback_centisecs ];then
+     busybox chmod 644 $i/dirty_writeback_centisecs 2>/dev/null
+		busybox echo "2000" > $i/dirty_writeback_centisecs
+fi
+
+#####
+#Memori
+#####
+
+if [ "$mem" -lt 1049776 ];then
+
+if [ -e $i/dirty_ratio ];then
+     busybox chmod 644 $i/dirty_ratio 2>/dev/null
+		busybox echo "30" > $i/dirty_ratio
+fi
+
+if [ -e $i/dirty_background_ratio ];then
+     busybox chmod 644 $i/dirty_background_ratio 2>/dev/null
+		busybox echo "5" > $i/dirty_background_ratio
+fi
+
+else 
+
+if [ -e $i/dirty_ratio ];then
+     busybox chmod 644 $i/dirty_ratio 2>/dev/null
+		busybox echo "70" > $i/dirty_ratio
+fi
+
+if [ -e $i/dirty_background_ratio ];then
+     busybox chmod 644 $i/dirty_background_ratio 2>/dev/null
+		busybox echo "5" > $i/dirty_background_ratio
+fi
+
+fi
+
+
+busybox sleep 0.5
+done
+		busybox clear
+		busybox echo "Proses VM Tweak selesai" | tee -a $ngz
+		busybox sleep 0.5
+		busybox echo "" | tee -a $ngz
+		busybox echo "$(date +"%d-%Y %H:%M" ) Pemasangan VM Tweak berhasil" | tee -a $ngz
+		busybox sleep 2
+		busybox clear

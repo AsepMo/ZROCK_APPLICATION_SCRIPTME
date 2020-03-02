@@ -1,0 +1,53 @@
+#!/system/bin/sh
+#=======================================================================#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  GNU General Public License for more details.
+#  You should have received a copy of the GNU General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#  GUNAKAN TWEAKS INI SEBIJAK MUNGKIN, DAN JANGAN MENCURI :]
+# Thanks Darkyrom for zipalign binary
+#=======================================================================#
+
+#!/system/bin/sh
+busybox mount -o remount,rw /data 2>/dev/null
+busybox mount -o remount,rw / 2>/dev/null
+busybox mount -o remount,rw /system 2>/dev/null
+busybox mount -o remount,rw rootfs 2>/dev/null
+
+ZIPALIGNDB=/data/zipalign.db
+log=/system/etc/NGZ/ngzlog/align.log
+if [ ! -f $ZIPALIGNDB ]; then
+	busybox touch $ZIPALIGNDB;
+fi;
+
+for DIR in /system/app /data/app /system/framework ; do
+  cd $DIR
+  for APK in *.apk ; do
+    if [ $APK -ot $ZIPALIGNDB ] && [ $(grep "$DIR/$APK" $ZIPALIGNDB|wc -l) -gt 0 ] ; then
+      echo "Sudah di cek: $DIR/$APK" 
+    else
+      zipalign -c 4 $APK 2>/dev/null
+      if [ $? -eq 0 ] ; then
+        echo "Sudah di proses : $DIR/$APK"
+        grep "$DIR/$APK" $ZIPALIGNDB > /dev/null || echo $DIR/$APK >> $ZIPALIGNDB
+      else
+        echo "Memproses : $DIR/$APK" 
+        zipalign -f 4 $APK /cache/$APK 2>/dev/null
+        busybox mount -o rw,remount /system 
+        busybox rm -f /cache/$APK
+        grep "$DIR/$APK" $ZIPALIGNDB > /dev/null || echo $DIR/$APK >> $ZIPALIGNDB
+      fi
+    fi
+  done
+done
+
+
+busybox rm -f $log
+busybox touch $log
+busybox touch $ZIPALIGNDB
+busybox echo "" | tee -a $log
+busybox echo "$(date +"%d-%Y %H:%M" ) Proses Zipalign Tweak telah berhasil" | tee -a $log
