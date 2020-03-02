@@ -55,7 +55,7 @@ public class TweaksActivity extends FragmentActivity
         // Replace fragment
         getSupportFragmentManager()
 			.beginTransaction()
-			.replace(R.id.fragment_editor,  new RunnerFragment())
+			.replace(R.id.fragment_editor,  new ScriptMeFragment())
 			.commit();
         /* First Time we open this activity */
         if (savedInstanceState == null) {
